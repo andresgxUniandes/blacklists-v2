@@ -11,13 +11,16 @@
         ],
         "image": "<IMAGE1_NAME>",
         "essential": true,
-        "name": "container-python-app",
-        "secrets": [
-          {
-            "name": "DATABASE_URL",
-            "valueFrom": "arn:aws:secretsmanager:us-east-1:121505946292:secret:blacklist/database-url"
+        "name": "app-ecr-blacklist-gl",
+        "logConfiguration": {
+          "logDriver": "awslogs",
+          "options": {
+            "awslogs-group": "/ecs/tsk-blacklist",
+            "awslogs-region": "us-east-1",
+            "awslogs-stream-prefix": "ecs",
+            "awslogs-create-group": "true"
           }
-        ]
+        }
       }
     ],
     "requiresCompatibilities": [
@@ -26,5 +29,5 @@
     "networkMode": "awsvpc",
     "cpu": "512",
     "memory": "1024",
-    "family": "python-app"
+    "family": "tsk-blacklist"
   }
