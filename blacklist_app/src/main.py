@@ -93,6 +93,7 @@ def _request_ip() -> str:
 
 class RootResource(Resource):
     def get(self):
+        print("Test deploy")
         return {"Hello": "World"}, 200
 
 
