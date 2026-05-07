@@ -16,7 +16,7 @@ app.config["PROPAGATE_EXCEPTIONS"] = True
 
 app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv(
     "DATABASE_URL",
-    "postgresql://postgres:postgres@blacklist-db:5432/blacklist-db",
+    "postgresql://postgres:CHANGE_ME_strong_password_123!@blacklist-dev-postgres.c23a8oy4ggpd.us-east-1.rds.amazonaws.com:5432/blacklistdb",
 )
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["JWT_SECRET_KEY"] = os.getenv("JWT_SECRET_KEY", "change-this-secret")
@@ -93,11 +93,13 @@ def _request_ip() -> str:
 
 class RootResource(Resource):
     def get(self):
-        return {"Hello": "World"}, 200
+        print("Root endpoint accessed - parte1")
+        return {"Hello": "World Version 2026-05-06 00:56"}, 200
 
 
 class HealthResource(Resource):
     def get(self):
+        print("Health check received - parte2")
         return "pong!", 200
 
 

@@ -3,7 +3,7 @@ class TestRootEndpoint:
         response = client.get("/")
 
         assert response.status_code == 200
-        assert response.get_json() == {"Hello": "World"}
+        assert response.get_json() == {"Hello": "World Version 2026-05-06 00:56"}
 
 
 class TestHealthEndpoint:
