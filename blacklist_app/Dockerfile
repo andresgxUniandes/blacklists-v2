@@ -16,4 +16,4 @@ ENV PORT=5000
 
 EXPOSE 5000
 
-CMD ["python", "-m", "src.main"]
+CMD ["newrelic-admin", "run-program", "python", "-m", "src.main"]
