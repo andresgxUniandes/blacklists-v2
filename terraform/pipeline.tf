@@ -16,18 +16,6 @@ variable "codestar_connection_arn" {
   default     = ""
 }
 
-variable "codedeploy_app_name" {
-  description = "Name of the CodeDeploy application for ECS Blue/Green deployment"
-  type        = string
-  default     = ""
-}
-
-variable "codedeploy_deployment_group" {
-  description = "Name of the CodeDeploy deployment group for ECS Blue/Green deployment"
-  type        = string
-  default     = ""
-}
-
 locals {
   pipeline_enabled     = var.enable_ci_pipeline ? 1 : 0
   repository_full_name = trimsuffix(trimprefix(var.github_repo_url, "https://github.com/"), ".git")
@@ -236,8 +224,8 @@ resource "aws_codepipeline" "app_pipeline" {
       input_artifacts = ["build_output"]
 
       configuration = {
-        ApplicationName                = var.codedeploy_app_name
-        DeploymentGroupName            = var.codedeploy_deployment_group
+        ApplicationName                = aws_codedeploy_app.blacklist.name
+        DeploymentGroupName            = aws_codedeploy_deployment_group.blacklist.deployment_group_name
         TaskDefinitionTemplateArtifact = "build_output"
         TaskDefinitionTemplatePath     = "taskdef.json"
         AppSpecTemplateArtifact        = "build_output"

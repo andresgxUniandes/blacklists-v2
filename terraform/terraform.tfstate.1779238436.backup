@@ -1,0 +1,3140 @@
+{
+  "version": 4,
+  "terraform_version": "1.14.4",
+  "serial": 109,
+  "lineage": "c5786975-3e6d-28ba-3e41-901899386951",
+  "outputs": {
+    "alb_dns_name": {
+      "value": "blacklist-dev-alb-877578835.us-east-1.elb.amazonaws.com",
+      "type": "string"
+    },
+    "alb_security_group_id": {
+      "value": "sg-0e61fd23fd50623ad",
+      "type": "string"
+    },
+    "app_security_group_id": {
+      "value": "sg-06b3c52c279c9dc5c",
+      "type": "string"
+    },
+    "codebuild_project_arn": {
+      "value": "arn:aws:codebuild:us-east-1:121505946292:project/blacklist-dev-build",
+      "type": "string"
+    },
+    "codebuild_project_name": {
+      "value": "blacklist-dev-build",
+      "type": "string"
+    },
+    "codepipeline_arn": {
+      "value": "arn:aws:codepipeline:us-east-1:121505946292:blacklist-dev-pipeline",
+      "type": "string"
+    },
+    "codepipeline_name": {
+      "value": "blacklist-dev-pipeline",
+      "type": "string"
+    },
+    "database_url": {
+      "value": "postgresql://postgres:****@blacklist-dev-postgres.cc30egewqiy3.us-east-1.rds.amazonaws.com:5432/blacklistdb",
+      "type": "string",
+      "sensitive": true
+    },
+    "ecr_repository_url": {
+      "value": "121505946292.dkr.ecr.us-east-1.amazonaws.com/ecr-blacklist",
+      "type": "string"
+    },
+    "ecs_cluster_name": {
+      "value": "blacklist-dev-cluster",
+      "type": "string"
+    },
+    "ecs_service_name": {
+      "value": "blacklist-dev-service",
+      "type": "string"
+    },
+    "private_subnet_ids": {
+      "value": [
+        "subnet-0cf73faded86c292a",
+        "subnet-01478100b6d2bce22"
+      ],
+      "type": [
+        "tuple",
+        [
+          "string",
+          "string"
+        ]
+      ]
+    },
+    "public_subnet_ids": {
+      "value": [
+        "subnet-04a92937dbfb0d1ee",
+        "subnet-01ffa04fd72ce9cab"
+      ],
+      "type": [
+        "tuple",
+        [
+          "string",
+          "string"
+        ]
+      ]
+    },
+    "rds_db_name": {
+      "value": "blacklistdb",
+      "type": "string"
+    },
+    "rds_endpoint": {
+      "value": "blacklist-dev-postgres.cc30egewqiy3.us-east-1.rds.amazonaws.com:5432",
+      "type": "string"
+    },
+    "rds_host": {
+      "value": "blacklist-dev-postgres.cc30egewqiy3.us-east-1.rds.amazonaws.com",
+      "type": "string"
+    },
+    "rds_instance_id": {
+      "value": "db-ONJYGOAIYPTFTQQFFMO6BPNZNY",
+      "type": "string"
+    },
+    "rds_port": {
+      "value": 5432,
+      "type": "number"
+    },
+    "rds_security_group_id": {
+      "value": "sg-0db531cb5ae229ea5",
+      "type": "string"
+    },
+    "vpc_id": {
+      "value": "vpc-0277b4fa9d213028e",
+      "type": "string"
+    }
+  },
+  "resources": [
+    {
+      "mode": "data",
+      "type": "aws_ami",
+      "name": "ecs_optimized",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "architecture": "x86_64",
+            "arn": "arn:aws:ec2:us-east-1::image/ami-005bc6e80d3c338f8",
+            "block_device_mappings": [
+              {
+                "device_name": "/dev/xvda",
+                "ebs": {
+                  "delete_on_termination": "true",
+                  "encrypted": "false",
+                  "iops": "3000",
+                  "snapshot_id": "snap-0c85c43fadaac7b3f",
+                  "throughput": "125",
+                  "volume_initialization_rate": "0",
+                  "volume_size": "30",
+                  "volume_type": "gp3"
+                },
+                "no_device": "",
+                "virtual_name": ""
+              }
+            ],
+            "boot_mode": "uefi-preferred",
+            "creation_date": "2026-05-15T01:38:45.000Z",
+            "deprecation_time": "2028-05-15T01:38:45.000Z",
+            "description": "Amazon Linux AMI 2023.0.20260514 x86_64 ECS HVM EBS",
+            "ena_support": true,
+            "executable_users": null,
+            "filter": [
+              {
+                "name": "name",
+                "values": [
+                  "al2023-ami-ecs-hvm-*-x86_64"
+                ]
+              }
+            ],
+            "hypervisor": "xen",
+            "id": "ami-005bc6e80d3c338f8",
+            "image_id": "ami-005bc6e80d3c338f8",
+            "image_location": "amazon/al2023-ami-ecs-hvm-2023.0.20260514-kernel-6.1-x86_64",
+            "image_owner_alias": "amazon",
+            "image_type": "machine",
+            "imds_support": "v2.0",
+            "include_deprecated": false,
+            "kernel_id": "",
+            "last_launched_time": "",
+            "most_recent": true,
+            "name": "al2023-ami-ecs-hvm-2023.0.20260514-kernel-6.1-x86_64",
+            "name_regex": null,
+            "owner_id": "591542846629",
+            "owners": [
+              "amazon"
+            ],
+            "platform": "",
+            "platform_details": "Linux/UNIX",
+            "product_codes": [],
+            "public": true,
+            "ramdisk_id": "",
+            "root_device_name": "/dev/xvda",
+            "root_device_type": "ebs",
+            "root_snapshot_id": "snap-0c85c43fadaac7b3f",
+            "sriov_net_support": "simple",
+            "state": "available",
+            "state_reason": {
+              "code": "UNSET",
+              "message": "UNSET"
+            },
+            "tags": {},
+            "timeouts": null,
+            "tpm_support": "",
+            "uefi_data": null,
+            "usage_operation": "RunInstances",
+            "virtualization_type": "hvm"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0
+        }
+      ]
+    },
+    {
+      "mode": "data",
+      "type": "aws_availability_zones",
+      "name": "available",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "all_availability_zones": null,
+            "exclude_names": null,
+            "exclude_zone_ids": null,
+            "filter": null,
+            "group_names": [
+              "us-east-1-zg-1"
+            ],
+            "id": "us-east-1",
+            "names": [
+              "us-east-1a",
+              "us-east-1b",
+              "us-east-1c",
+              "us-east-1d",
+              "us-east-1e",
+              "us-east-1f"
+            ],
+            "state": "available",
+            "timeouts": null,
+            "zone_ids": [
+              "use1-az1",
+              "use1-az2",
+              "use1-az4",
+              "use1-az6",
+              "use1-az3",
+              "use1-az5"
+            ]
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0
+        }
+      ]
+    },
+    {
+      "mode": "data",
+      "type": "aws_caller_identity",
+      "name": "current",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "account_id": "121505946292",
+            "arn": "arn:aws:iam::121505946292:root",
+            "id": "121505946292",
+            "user_id": "121505946292"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_autoscaling_group",
+      "name": "ecs",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 1,
+          "attributes": {
+            "arn": "arn:aws:autoscaling:us-east-1:121505946292:autoScalingGroup:d9a01eed-30e5-41cb-bdbc-df8d49c8ff51:autoScalingGroupName/blacklist-dev-ecs-asg",
+            "availability_zone_distribution": [
+              {
+                "capacity_distribution_strategy": "balanced-best-effort"
+              }
+            ],
+            "availability_zones": [
+              "us-east-1a",
+              "us-east-1b"
+            ],
+            "capacity_rebalance": false,
+            "capacity_reservation_specification": [
+              {
+                "capacity_reservation_preference": "default",
+                "capacity_reservation_target": []
+              }
+            ],
+            "context": "",
+            "default_cooldown": 300,
+            "default_instance_warmup": 0,
+            "desired_capacity": 2,
+            "desired_capacity_type": "",
+            "enabled_metrics": [],
+            "force_delete": false,
+            "force_delete_warm_pool": false,
+            "health_check_grace_period": 300,
+            "health_check_type": "EC2",
+            "id": "blacklist-dev-ecs-asg",
+            "ignore_failed_scaling_activities": false,
+            "initial_lifecycle_hook": [],
+            "instance_maintenance_policy": [],
+            "instance_refresh": [],
+            "launch_configuration": "",
+            "launch_template": [
+              {
+                "id": "lt-0a3d40ac04c54a60d",
+                "name": "blacklist-dev-ecs-lt-20260519235933102800000003",
+                "version": "$Latest"
+              }
+            ],
+            "load_balancers": [],
+            "max_instance_lifetime": 0,
+            "max_size": 3,
+            "metrics_granularity": "1Minute",
+            "min_elb_capacity": null,
+            "min_size": 1,
+            "mixed_instances_policy": [],
+            "name": "blacklist-dev-ecs-asg",
+            "name_prefix": "",
+            "placement_group": "",
+            "predicted_capacity": 0,
+            "protect_from_scale_in": true,
+            "service_linked_role_arn": "arn:aws:iam::121505946292:role/aws-service-role/autoscaling.amazonaws.com/AWSServiceRoleForAutoScaling",
+            "suspended_processes": [],
+            "tag": [
+              {
+                "key": "AmazonECSManaged",
+                "propagate_at_launch": true,
+                "value": "true"
+              },
+              {
+                "key": "Environment",
+                "propagate_at_launch": true,
+                "value": "dev"
+              },
+              {
+                "key": "ManagedBy",
+                "propagate_at_launch": true,
+                "value": "terraform"
+              },
+              {
+                "key": "Project",
+                "propagate_at_launch": true,
+                "value": "blacklist"
+              }
+            ],
+            "target_group_arns": [],
+            "termination_policies": [],
+            "timeouts": null,
+            "traffic_source": [],
+            "vpc_zone_identifier": [
+              "subnet-01ffa04fd72ce9cab",
+              "subnet-04a92937dbfb0d1ee"
+            ],
+            "wait_for_capacity_timeout": "10m",
+            "wait_for_elb_capacity": null,
+            "warm_pool": [],
+            "warm_pool_size": 0
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiZGVsZXRlIjo2MDAwMDAwMDAwMDAsInVwZGF0ZSI6NjAwMDAwMDAwMDAwfSwic2NoZW1hX3ZlcnNpb24iOiIxIn0=",
+          "dependencies": [
+            "aws_ecs_cluster.main",
+            "aws_iam_instance_profile.ecs_instance",
+            "aws_iam_role.ecs_instance",
+            "aws_launch_template.ecs",
+            "aws_security_group.alb",
+            "aws_security_group.app",
+            "aws_subnet.public",
+            "aws_vpc.main",
+            "data.aws_ami.ecs_optimized",
+            "data.aws_availability_zones.available"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_cloudwatch_log_group",
+      "name": "ecs",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "arn": "arn:aws:logs:us-east-1:121505946292:log-group:/ecs/blacklist-dev",
+            "id": "/ecs/blacklist-dev",
+            "kms_key_id": "",
+            "log_group_class": "STANDARD",
+            "name": "/ecs/blacklist-dev",
+            "name_prefix": "",
+            "retention_in_days": 7,
+            "skip_destroy": false,
+            "tags": {
+              "Environment": "dev",
+              "ManagedBy": "terraform",
+              "Name": "/ecs/blacklist-dev",
+              "Project": "blacklist"
+            },
+            "tags_all": {
+              "Environment": "dev",
+              "ManagedBy": "terraform",
+              "Name": "/ecs/blacklist-dev",
+              "Project": "blacklist"
+            }
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA=="
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_codebuild_project",
+      "name": "blacklist",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "arn": "arn:aws:codebuild:us-east-1:121505946292:project/blacklist-dev-build",
+            "artifacts": [
+              {
+                "artifact_identifier": "",
+                "bucket_owner_access": "",
+                "encryption_disabled": false,
+                "location": "",
+                "name": "blacklist-dev-build",
+                "namespace_type": "",
+                "override_artifact_name": false,
+                "packaging": "NONE",
+                "path": "",
+                "type": "CODEPIPELINE"
+              }
+            ],
+            "badge_enabled": false,
+            "badge_url": "",
+            "build_batch_config": [],
+            "build_timeout": 20,
+            "cache": [
+              {
+                "location": "",
+                "modes": [],
+                "type": "NO_CACHE"
+              }
+            ],
+            "concurrent_build_limit": 0,
+            "description": "Build and deploy the Blacklist application to ECS",
+            "encryption_key": "arn:aws:kms:us-east-1:121505946292:alias/aws/s3",
+            "environment": [
+              {
+                "certificate": "",
+                "compute_type": "BUILD_GENERAL1_SMALL",
+                "environment_variable": [
+                  {
+                    "name": "AWS_DEFAULT_REGION",
+                    "type": "PLAINTEXT",
+                    "value": "us-east-1"
+                  },
+                  {
+                    "name": "AWS_ACCOUNT_ID",
+                    "type": "PLAINTEXT",
+                    "value": "121505946292"
+                  },
+                  {
+                    "name": "ECR_REPOSITORY_URI",
+                    "type": "PLAINTEXT",
+                    "value": "121505946292.dkr.ecr.us-east-1.amazonaws.com/ecr-blacklist"
+                  },
+                  {
+                    "name": "CONTAINER_NAME",
+                    "type": "PLAINTEXT",
+                    "value": "app-ecr-blacklist"
+                  },
+                  {
+                    "name": "TASK_EXECUTION_ROLE_ARN",
+                    "type": "PLAINTEXT",
+                    "value": "arn:aws:iam::121505946292:role/blacklist-dev-ecs-task-exec-role"
+                  }
+                ],
+                "fleet": [],
+                "image": "aws/codebuild/standard:7.0",
+                "image_pull_credentials_type": "CODEBUILD",
+                "privileged_mode": true,
+                "registry_credential": [],
+                "type": "LINUX_CONTAINER"
+              }
+            ],
+            "file_system_locations": [],
+            "id": "arn:aws:codebuild:us-east-1:121505946292:project/blacklist-dev-build",
+            "logs_config": [
+              {
+                "cloudwatch_logs": [
+                  {
+                    "group_name": "/aws/codebuild/blacklist-dev-build",
+                    "status": "ENABLED",
+                    "stream_name": "build-log"
+                  }
+                ],
+                "s3_logs": [
+                  {
+                    "bucket_owner_access": "",
+                    "encryption_disabled": false,
+                    "location": "",
+                    "status": "DISABLED"
+                  }
+                ]
+              }
+            ],
+            "name": "blacklist-dev-build",
+            "project_visibility": "PRIVATE",
+            "public_project_alias": "",
+            "queued_timeout": 480,
+            "resource_access_role": "",
+            "secondary_artifacts": [],
+            "secondary_source_version": [],
+            "secondary_sources": [],
+            "service_role": "arn:aws:iam::121505946292:role/blacklist-dev-codebuild-role",
+            "source": [
+              {
+                "auth": [],
+                "build_status_config": [],
+                "buildspec": "buildspec.yml",
+                "git_clone_depth": 0,
+                "git_submodules_config": [],
+                "insecure_ssl": false,
+                "location": "",
+                "report_build_status": false,
+                "type": "CODEPIPELINE"
+              }
+            ],
+            "source_version": "",
+            "tags": {
+              "Environment": "dev",
+              "ManagedBy": "terraform",
+              "Name": "blacklist-dev-build",
+              "Project": "blacklist"
+            },
+            "tags_all": {
+              "Environment": "dev",
+              "ManagedBy": "terraform",
+              "Name": "blacklist-dev-build",
+              "Project": "blacklist"
+            },
+            "vpc_config": []
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_ecr_repository.blacklist",
+            "aws_iam_role.codebuild",
+            "aws_iam_role.ecs_task_execution",
+            "data.aws_caller_identity.current"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_codedeploy_app",
+      "name": "blacklist",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "application_id": "7e38e696-06b8-402a-9c74-b09c513d06bc",
+            "arn": "arn:aws:codedeploy:us-east-1:121505946292:application:blacklist-dev-codedeploy-app",
+            "compute_platform": "ECS",
+            "github_account_name": "",
+            "id": "7e38e696-06b8-402a-9c74-b09c513d06bc:blacklist-dev-codedeploy-app",
+            "linked_to_github": false,
+            "name": "blacklist-dev-codedeploy-app",
+            "tags": {
+              "Environment": "dev",
+              "ManagedBy": "terraform",
+              "Name": "blacklist-dev-codedeploy-app",
+              "Project": "blacklist"
+            },
+            "tags_all": {
+              "Environment": "dev",
+              "ManagedBy": "terraform",
+              "Name": "blacklist-dev-codedeploy-app",
+              "Project": "blacklist"
+            }
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA=="
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_codepipeline",
+      "name": "app_pipeline",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "index_key": 0,
+          "schema_version": 0,
+          "attributes": {
+            "arn": "arn:aws:codepipeline:us-east-1:121505946292:blacklist-dev-pipeline",
+            "artifact_store": [
+              {
+                "encryption_key": [],
+                "location": "blacklist-dev-pipeline-artifacts-6820581b",
+                "region": "",
+                "type": "S3"
+              }
+            ],
+            "execution_mode": "QUEUED",
+            "id": "blacklist-dev-pipeline",
+            "name": "blacklist-dev-pipeline",
+            "pipeline_type": "V2",
+            "role_arn": "arn:aws:iam::121505946292:role/blacklist-dev-codepipeline-role",
+            "stage": [
+              {
+                "action": [
+                  {
+                    "category": "Source",
+                    "configuration": {
+                      "BranchName": "main",
+                      "ConnectionArn": "arn:aws:codeconnections:us-east-1:121505946292:connection/ae8877db-16ab-43c3-bdaa-a79a4d9654c0",
+                      "FullRepositoryId": "andresgxUniandes/blacklists-v2"
+                    },
+                    "input_artifacts": [],
+                    "name": "Source",
+                    "namespace": "",
+                    "output_artifacts": [
+                      "source_output"
+                    ],
+                    "owner": "AWS",
+                    "provider": "CodeStarSourceConnection",
+                    "region": "",
+                    "role_arn": "",
+                    "run_order": 1,
+                    "timeout_in_minutes": 0,
+                    "version": "1"
+                  }
+                ],
+                "before_entry": [],
+                "name": "Source",
+                "on_failure": [],
+                "on_success": []
+              },
+              {
+                "action": [
+                  {
+                    "category": "Build",
+                    "configuration": {
+                      "ProjectName": "blacklist-dev-build"
+                    },
+                    "input_artifacts": [
+                      "source_output"
+                    ],
+                    "name": "Build",
+                    "namespace": "",
+                    "output_artifacts": [
+                      "build_output"
+                    ],
+                    "owner": "AWS",
+                    "provider": "CodeBuild",
+                    "region": "",
+                    "role_arn": "",
+                    "run_order": 1,
+                    "timeout_in_minutes": 0,
+                    "version": "1"
+                  }
+                ],
+                "before_entry": [],
+                "name": "Build",
+                "on_failure": [],
+                "on_success": []
+              },
+              {
+                "action": [
+                  {
+                    "category": "Deploy",
+                    "configuration": {
+                      "AppSpecTemplateArtifact": "build_output",
+                      "AppSpecTemplatePath": "appspec.json",
+                      "ApplicationName": "App-Blacklist-ECS",
+                      "DeploymentGroupName": "DGP-Blacklist-ECS",
+                      "Image1ArtifactName": "build_output",
+                      "Image1ContainerName": "IMAGE1_NAME",
+                      "TaskDefinitionTemplateArtifact": "build_output",
+                      "TaskDefinitionTemplatePath": "taskdef.json"
+                    },
+                    "input_artifacts": [
+                      "build_output"
+                    ],
+                    "name": "Deploy",
+                    "namespace": "",
+                    "output_artifacts": [],
+                    "owner": "AWS",
+                    "provider": "CodeDeployToECS",
+                    "region": "",
+                    "role_arn": "",
+                    "run_order": 1,
+                    "timeout_in_minutes": 0,
+                    "version": "1"
+                  }
+                ],
+                "before_entry": [],
+                "name": "Deploy",
+                "on_failure": [],
+                "on_success": []
+              }
+            ],
+            "tags": {
+              "Environment": "dev",
+              "ManagedBy": "terraform",
+              "Name": "blacklist-dev-pipeline",
+              "Project": "blacklist"
+            },
+            "tags_all": {
+              "Environment": "dev",
+              "ManagedBy": "terraform",
+              "Name": "blacklist-dev-pipeline",
+              "Project": "blacklist"
+            },
+            "trigger": [
+              {
+                "git_configuration": [
+                  {
+                    "pull_request": [
+                      {
+                        "branches": [
+                          {
+                            "excludes": [],
+                            "includes": [
+                              "main"
+                            ]
+                          }
+                        ],
+                        "events": [
+                          "OPEN",
+                          "UPDATED",
+                          "CLOSED"
+                        ],
+                        "file_paths": []
+                      }
+                    ],
+                    "push": [
+                      {
+                        "branches": [
+                          {
+                            "excludes": [],
+                            "includes": [
+                              "main"
+                            ]
+                          }
+                        ],
+                        "file_paths": [],
+                        "tags": []
+                      }
+                    ],
+                    "source_action_name": "Source"
+                  }
+                ],
+                "provider_type": "CodeStarSourceConnection"
+              }
+            ],
+            "trigger_all": [
+              {
+                "git_configuration": [
+                  {
+                    "pull_request": [
+                      {
+                        "branches": [
+                          {
+                            "excludes": [],
+                            "includes": [
+                              "main"
+                            ]
+                          }
+                        ],
+                        "events": [
+                          "OPEN",
+                          "UPDATED",
+                          "CLOSED"
+                        ],
+                        "file_paths": []
+                      }
+                    ],
+                    "push": [
+                      {
+                        "branches": [
+                          {
+                            "excludes": [],
+                            "includes": [
+                              "main"
+                            ]
+                          }
+                        ],
+                        "file_paths": [],
+                        "tags": []
+                      }
+                    ],
+                    "source_action_name": "Source"
+                  }
+                ],
+                "provider_type": "CodeStarSourceConnection"
+              }
+            ],
+            "variable": []
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_cloudwatch_log_group.ecs",
+            "aws_codebuild_project.blacklist",
+            "aws_codedeploy_app.blacklist",
+            "aws_codedeploy_deployment_group.blacklist",
+            "aws_db_instance.main",
+            "aws_db_parameter_group.main",
+            "aws_db_subnet_group.main",
+            "aws_ecr_repository.blacklist",
+            "aws_ecs_cluster.main",
+            "aws_ecs_service.blacklist",
+            "aws_ecs_task_definition.blacklist",
+            "aws_iam_role.codebuild",
+            "aws_iam_role.codedeploy",
+            "aws_iam_role.codepipeline",
+            "aws_iam_role.ecs_task_execution",
+            "aws_iam_role_policy_attachment.ecs_task_execution",
+            "aws_lb.main",
+            "aws_lb_listener.http",
+            "aws_lb_listener.test",
+            "aws_lb_target_group.blue",
+            "aws_lb_target_group.green",
+            "aws_s3_bucket.pipeline_artifacts",
+            "aws_security_group.alb",
+            "aws_security_group.app",
+            "aws_security_group.rds",
+            "aws_subnet.public",
+            "aws_vpc.main",
+            "data.aws_availability_zones.available",
+            "data.aws_caller_identity.current",
+            "random_id.bucket_suffix"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_db_instance",
+      "name": "main",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 2,
+          "attributes": {
+            "address": "blacklist-dev-postgres.cc30egewqiy3.us-east-1.rds.amazonaws.com",
+            "allocated_storage": 20,
+            "allow_major_version_upgrade": null,
+            "apply_immediately": false,
+            "arn": "arn:aws:rds:us-east-1:121505946292:db:blacklist-dev-postgres",
+            "auto_minor_version_upgrade": true,
+            "availability_zone": "us-east-1a",
+            "backup_retention_period": 0,
+            "backup_target": "region",
+            "backup_window": "03:00-04:00",
+            "blue_green_update": [],
+            "ca_cert_identifier": "rds-ca-rsa2048-g1",
+            "character_set_name": "",
+            "copy_tags_to_snapshot": false,
+            "custom_iam_instance_profile": "",
+            "customer_owned_ip_enabled": false,
+            "database_insights_mode": "standard",
+            "db_name": "blacklistdb",
+            "db_subnet_group_name": "blacklist-dev-db-subnet-group",
+            "dedicated_log_volume": false,
+            "delete_automated_backups": true,
+            "deletion_protection": false,
+            "domain": "",
+            "domain_auth_secret_arn": "",
+            "domain_dns_ips": [],
+            "domain_fqdn": "",
+            "domain_iam_role_name": "",
+            "domain_ou": "",
+            "enabled_cloudwatch_logs_exports": [],
+            "endpoint": "blacklist-dev-postgres.cc30egewqiy3.us-east-1.rds.amazonaws.com:5432",
+            "engine": "postgres",
+            "engine_lifecycle_support": "open-source-rds-extended-support",
+            "engine_version": "16.3",
+            "engine_version_actual": "16.3",
+            "final_snapshot_identifier": null,
+            "hosted_zone_id": "Z2R2ITUGPM61AM",
+            "iam_database_authentication_enabled": false,
+            "id": "db-ONJYGOAIYPTFTQQFFMO6BPNZNY",
+            "identifier": "blacklist-dev-postgres",
+            "identifier_prefix": "",
+            "instance_class": "db.t3.micro",
+            "iops": 3000,
+            "kms_key_id": "arn:aws:kms:us-east-1:121505946292:key/6636a0c5-1c35-4a48-a2e9-0f62e55c0381",
+            "latest_restorable_time": "",
+            "license_model": "postgresql-license",
+            "listener_endpoint": [],
+            "maintenance_window": "mon:04:00-mon:05:00",
+            "manage_master_user_password": null,
+            "master_user_secret": [],
+            "master_user_secret_kms_key_id": null,
+            "max_allocated_storage": 0,
+            "monitoring_interval": 0,
+            "monitoring_role_arn": "",
+            "multi_az": false,
+            "nchar_character_set_name": "",
+            "network_type": "IPV4",
+            "option_group_name": "default:postgres-16",
+            "parameter_group_name": "blacklist-dev-pg16",
+            "password": "CHANGE_ME_strong_password_123!",
+            "password_wo": null,
+            "password_wo_version": null,
+            "performance_insights_enabled": false,
+            "performance_insights_kms_key_id": "",
+            "performance_insights_retention_period": 0,
+            "port": 5432,
+            "publicly_accessible": true,
+            "replica_mode": "",
+            "replicas": [],
+            "replicate_source_db": "",
+            "resource_id": "db-ONJYGOAIYPTFTQQFFMO6BPNZNY",
+            "restore_to_point_in_time": [],
+            "s3_import": [],
+            "skip_final_snapshot": true,
+            "snapshot_identifier": null,
+            "status": "available",
+            "storage_encrypted": true,
+            "storage_throughput": 125,
+            "storage_type": "gp3",
+            "tags": {
+              "Environment": "dev",
+              "ManagedBy": "terraform",
+              "Name": "blacklist-dev-postgres",
+              "Project": "blacklist"
+            },
+            "tags_all": {
+              "Environment": "dev",
+              "ManagedBy": "terraform",
+              "Name": "blacklist-dev-postgres",
+              "Project": "blacklist"
+            },
+            "timeouts": null,
+            "timezone": "",
+            "upgrade_storage_config": null,
+            "username": "postgres",
+            "vpc_security_group_ids": [
+              "sg-0db531cb5ae229ea5"
+            ]
+          },
+          "sensitive_attributes": [
+            [
+              {
+                "type": "get_attr",
+                "value": "password"
+              }
+            ],
+            [
+              {
+                "type": "get_attr",
+                "value": "password_wo"
+              }
+            ],
+            [
+              {
+                "type": "get_attr",
+                "value": "username"
+              }
+            ]
+          ],
+          "identity_schema_version": 0,
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjozMDAwMDAwMDAwMDAwLCJkZWxldGUiOjM2MDAwMDAwMDAwMDAsInVwZGF0ZSI6NDgwMDAwMDAwMDAwMH0sInNjaGVtYV92ZXJzaW9uIjoiMiJ9",
+          "dependencies": [
+            "aws_db_parameter_group.main",
+            "aws_db_subnet_group.main",
+            "aws_security_group.alb",
+            "aws_security_group.app",
+            "aws_security_group.rds",
+            "aws_subnet.public",
+            "aws_vpc.main",
+            "data.aws_availability_zones.available"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_db_parameter_group",
+      "name": "main",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "arn": "arn:aws:rds:us-east-1:121505946292:pg:blacklist-dev-pg16",
+            "description": "Parameter group for blacklist-dev PostgreSQL 16",
+            "family": "postgres16",
+            "id": "blacklist-dev-pg16",
+            "name": "blacklist-dev-pg16",
+            "name_prefix": "",
+            "parameter": [
+              {
+                "apply_method": "immediate",
+                "name": "log_connections",
+                "value": "1"
+              },
+              {
+                "apply_method": "immediate",
+                "name": "log_disconnections",
+                "value": "1"
+              }
+            ],
+            "skip_destroy": false,
+            "tags": {
+              "Environment": "dev",
+              "ManagedBy": "terraform",
+              "Name": "blacklist-dev-pg16",
+              "Project": "blacklist"
+            },
+            "tags_all": {
+              "Environment": "dev",
+              "ManagedBy": "terraform",
+              "Name": "blacklist-dev-pg16",
+              "Project": "blacklist"
+            }
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA=="
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_db_subnet_group",
+      "name": "main",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "arn": "arn:aws:rds:us-east-1:121505946292:subgrp:blacklist-dev-db-subnet-group",
+            "description": "Subnet group for blacklist-dev RDS instance",
+            "id": "blacklist-dev-db-subnet-group",
+            "name": "blacklist-dev-db-subnet-group",
+            "name_prefix": "",
+            "subnet_ids": [
+              "subnet-01ffa04fd72ce9cab",
+              "subnet-04a92937dbfb0d1ee"
+            ],
+            "supported_network_types": [
+              "IPV4"
+            ],
+            "tags": {
+              "Environment": "dev",
+              "ManagedBy": "terraform",
+              "Name": "blacklist-dev-db-subnet-group",
+              "Project": "blacklist"
+            },
+            "tags_all": {
+              "Environment": "dev",
+              "ManagedBy": "terraform",
+              "Name": "blacklist-dev-db-subnet-group",
+              "Project": "blacklist"
+            },
+            "vpc_id": "vpc-0277b4fa9d213028e"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_subnet.public",
+            "aws_vpc.main",
+            "data.aws_availability_zones.available"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_ecr_lifecycle_policy",
+      "name": "blacklist",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "id": "ecr-blacklist",
+            "policy": "{\"rules\":[{\"action\":{\"type\":\"expire\"},\"description\":\"Keep last 10 images\",\"rulePriority\":1,\"selection\":{\"countNumber\":10,\"countType\":\"imageCountMoreThan\",\"tagStatus\":\"any\"}}]}",
+            "registry_id": "121505946292",
+            "repository": "ecr-blacklist"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_ecr_repository.blacklist"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_ecr_repository",
+      "name": "blacklist",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "arn": "arn:aws:ecr:us-east-1:121505946292:repository/ecr-blacklist",
+            "encryption_configuration": [
+              {
+                "encryption_type": "AES256",
+                "kms_key": ""
+              }
+            ],
+            "force_delete": true,
+            "id": "ecr-blacklist",
+            "image_scanning_configuration": [
+              {
+                "scan_on_push": true
+              }
+            ],
+            "image_tag_mutability": "MUTABLE",
+            "name": "ecr-blacklist",
+            "registry_id": "121505946292",
+            "repository_url": "121505946292.dkr.ecr.us-east-1.amazonaws.com/ecr-blacklist",
+            "tags": {
+              "Environment": "dev",
+              "ManagedBy": "terraform",
+              "Name": "ecr-blacklist",
+              "Project": "blacklist"
+            },
+            "tags_all": {
+              "Environment": "dev",
+              "ManagedBy": "terraform",
+              "Name": "ecr-blacklist",
+              "Project": "blacklist"
+            },
+            "timeouts": null
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiZGVsZXRlIjoxMjAwMDAwMDAwMDAwfX0="
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_ecs_capacity_provider",
+      "name": "main",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "arn": "arn:aws:ecs:us-east-1:121505946292:capacity-provider/blacklist-dev-cp",
+            "auto_scaling_group_provider": [
+              {
+                "auto_scaling_group_arn": "arn:aws:autoscaling:us-east-1:121505946292:autoScalingGroup:d9a01eed-30e5-41cb-bdbc-df8d49c8ff51:autoScalingGroupName/blacklist-dev-ecs-asg",
+                "managed_draining": "ENABLED",
+                "managed_scaling": [
+                  {
+                    "instance_warmup_period": 0,
+                    "maximum_scaling_step_size": 10,
+                    "minimum_scaling_step_size": 1,
+                    "status": "ENABLED",
+                    "target_capacity": 80
+                  }
+                ],
+                "managed_termination_protection": "ENABLED"
+              }
+            ],
+            "id": "arn:aws:ecs:us-east-1:121505946292:capacity-provider/blacklist-dev-cp",
+            "name": "blacklist-dev-cp",
+            "tags": {
+              "Environment": "dev",
+              "ManagedBy": "terraform",
+              "Name": "blacklist-dev-cp",
+              "Project": "blacklist"
+            },
+            "tags_all": {
+              "Environment": "dev",
+              "ManagedBy": "terraform",
+              "Name": "blacklist-dev-cp",
+              "Project": "blacklist"
+            }
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_autoscaling_group.ecs",
+            "aws_ecs_cluster.main",
+            "aws_iam_instance_profile.ecs_instance",
+            "aws_iam_role.ecs_instance",
+            "aws_launch_template.ecs",
+            "aws_security_group.alb",
+            "aws_security_group.app",
+            "aws_subnet.public",
+            "aws_vpc.main",
+            "data.aws_ami.ecs_optimized",
+            "data.aws_availability_zones.available"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_ecs_cluster",
+      "name": "main",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "arn": "arn:aws:ecs:us-east-1:121505946292:cluster/blacklist-dev-cluster",
+            "configuration": [],
+            "id": "arn:aws:ecs:us-east-1:121505946292:cluster/blacklist-dev-cluster",
+            "name": "blacklist-dev-cluster",
+            "service_connect_defaults": [],
+            "setting": [
+              {
+                "name": "containerInsights",
+                "value": "enabled"
+              }
+            ],
+            "tags": {
+              "Environment": "dev",
+              "ManagedBy": "terraform",
+              "Name": "blacklist-dev-cluster",
+              "Project": "blacklist"
+            },
+            "tags_all": {
+              "Environment": "dev",
+              "ManagedBy": "terraform",
+              "Name": "blacklist-dev-cluster",
+              "Project": "blacklist"
+            }
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA=="
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_ecs_cluster_capacity_providers",
+      "name": "main",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "capacity_providers": [
+              "blacklist-dev-cp"
+            ],
+            "cluster_name": "blacklist-dev-cluster",
+            "default_capacity_provider_strategy": [
+              {
+                "base": 1,
+                "capacity_provider": "blacklist-dev-cp",
+                "weight": 1
+              }
+            ],
+            "id": "blacklist-dev-cluster"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_autoscaling_group.ecs",
+            "aws_ecs_capacity_provider.main",
+            "aws_ecs_cluster.main",
+            "aws_iam_instance_profile.ecs_instance",
+            "aws_iam_role.ecs_instance",
+            "aws_launch_template.ecs",
+            "aws_security_group.alb",
+            "aws_security_group.app",
+            "aws_subnet.public",
+            "aws_vpc.main",
+            "data.aws_ami.ecs_optimized",
+            "data.aws_availability_zones.available"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_ecs_task_definition",
+      "name": "blacklist",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 1,
+          "attributes": {
+            "arn": "arn:aws:ecs:us-east-1:121505946292:task-definition/blacklist-dev-task:1",
+            "arn_without_revision": "arn:aws:ecs:us-east-1:121505946292:task-definition/blacklist-dev-task",
+            "container_definitions": "[{\"environment\":[{\"name\":\"AUTH_PASSWORD\",\"value\":\"CHANGE_ME_admin_password\"},{\"name\":\"AUTH_USERNAME\",\"value\":\"admin\"},{\"name\":\"DATABASE_URL\",\"value\":\"postgresql://postgres:CHANGE_ME_strong_password_123!@blacklist-dev-postgres.cc30egewqiy3.us-east-1.rds.amazonaws.com:5432/blacklistdb\"},{\"name\":\"JWT_SECRET_KEY\",\"value\":\"CHANGE_ME_jwt_secret_key_very_long_and_random\"},{\"name\":\"NEW_RELIC_APP_NAME\",\"value\":\"blacklist-app\"},{\"name\":\"NEW_RELIC_DISTRIBUTED_TRACING_ENABLED\",\"value\":\"true\"},{\"name\":\"NEW_RELIC_LOG\",\"value\":\"stdout\"},{\"name\":\"NEW_RELIC_LOG_LEVEL\",\"value\":\"info\"}],\"essential\":true,\"image\":\"121505946292.dkr.ecr.us-east-1.amazonaws.com/ecr-blacklist:latest\",\"logConfiguration\":{\"logDriver\":\"awslogs\",\"options\":{\"awslogs-region\":\"us-east-1\",\"awslogs-stream-prefix\":\"ecs\",\"awslogs-group\":\"/ecs/blacklist-dev\"}},\"mountPoints\":[],\"name\":\"app-ecr-blacklist\",\"portMappings\":[{\"containerPort\":5000,\"hostPort\":0,\"protocol\":\"tcp\"}],\"secrets\":[{\"name\":\"NEW_RELIC_LICENSE_KEY\",\"valueFrom\":\"arn:aws:ssm:us-east-1:121505946292:parameter/NEW_RELIC_LICENSE_KEY\"}],\"systemControls\":[],\"volumesFrom\":[]}]",
+            "cpu": "256",
+            "enable_fault_injection": false,
+            "ephemeral_storage": [],
+            "execution_role_arn": "arn:aws:iam::121505946292:role/blacklist-dev-ecs-task-exec-role",
+            "family": "blacklist-dev-task",
+            "id": "blacklist-dev-task",
+            "inference_accelerator": [],
+            "ipc_mode": "",
+            "memory": "512",
+            "network_mode": "bridge",
+            "pid_mode": "",
+            "placement_constraints": [],
+            "proxy_configuration": [],
+            "requires_compatibilities": [
+              "EC2"
+            ],
+            "revision": 1,
+            "runtime_platform": [],
+            "skip_destroy": false,
+            "tags": {
+              "Environment": "dev",
+              "ManagedBy": "terraform",
+              "Name": "blacklist-dev-task",
+              "Project": "blacklist"
+            },
+            "tags_all": {
+              "Environment": "dev",
+              "ManagedBy": "terraform",
+              "Name": "blacklist-dev-task",
+              "Project": "blacklist"
+            },
+            "task_role_arn": "",
+            "track_latest": false,
+            "volume": []
+          },
+          "sensitive_attributes": [
+            [
+              {
+                "type": "get_attr",
+                "value": "container_definitions"
+              }
+            ]
+          ],
+          "identity_schema_version": 0,
+          "private": "eyJzY2hlbWFfdmVyc2lvbiI6IjEifQ==",
+          "dependencies": [
+            "aws_cloudwatch_log_group.ecs",
+            "aws_db_instance.main",
+            "aws_db_parameter_group.main",
+            "aws_db_subnet_group.main",
+            "aws_ecr_repository.blacklist",
+            "aws_iam_role.ecs_task_execution",
+            "aws_security_group.alb",
+            "aws_security_group.app",
+            "aws_security_group.rds",
+            "aws_subnet.public",
+            "aws_vpc.main",
+            "data.aws_availability_zones.available",
+            "data.aws_caller_identity.current"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_iam_instance_profile",
+      "name": "ecs_instance",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "arn": "arn:aws:iam::121505946292:instance-profile/blacklist-dev-ecs-instance-profile",
+            "create_date": "2026-05-19T23:56:59Z",
+            "id": "blacklist-dev-ecs-instance-profile",
+            "name": "blacklist-dev-ecs-instance-profile",
+            "name_prefix": "",
+            "path": "/",
+            "role": "blacklist-dev-ecs-instance-role",
+            "tags": {
+              "Environment": "dev",
+              "ManagedBy": "terraform",
+              "Name": "blacklist-dev-ecs-instance-profile",
+              "Project": "blacklist"
+            },
+            "tags_all": {
+              "Environment": "dev",
+              "ManagedBy": "terraform",
+              "Name": "blacklist-dev-ecs-instance-profile",
+              "Project": "blacklist"
+            },
+            "unique_id": "AIPARYSSRTK2OBN6R36N3"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_iam_role.ecs_instance"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_iam_role",
+      "name": "codebuild",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "arn": "arn:aws:iam::121505946292:role/blacklist-dev-codebuild-role",
+            "assume_role_policy": "{\"Statement\":[{\"Action\":\"sts:AssumeRole\",\"Effect\":\"Allow\",\"Principal\":{\"Service\":\"codebuild.amazonaws.com\"}}],\"Version\":\"2012-10-17\"}",
+            "create_date": "2026-05-19T23:04:42Z",
+            "description": "",
+            "force_detach_policies": false,
+            "id": "blacklist-dev-codebuild-role",
+            "inline_policy": [
+              {
+                "name": "blacklist-dev-codebuild-pipeline-artifacts-policy",
+                "policy": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Action\":[\"s3:GetBucketAcl\",\"s3:GetBucketLocation\",\"s3:GetObject\",\"s3:GetObjectVersion\",\"s3:ListBucket\",\"s3:PutObject\"],\"Effect\":\"Allow\",\"Resource\":[\"arn:aws:s3:::blacklist-dev-pipeline-artifacts-6820581b\",\"arn:aws:s3:::blacklist-dev-pipeline-artifacts-6820581b/*\"],\"Sid\":\"PipelineArtifactsReadWrite\"}]}"
+              },
+              {
+                "name": "blacklist-dev-codebuild-policy",
+                "policy": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Action\":[\"logs:CreateLogGroup\",\"logs:CreateLogStream\",\"logs:PutLogEvents\"],\"Effect\":\"Allow\",\"Resource\":\"arn:aws:logs:us-east-1:*:log-group:/aws/codebuild/blacklist-dev-build*\",\"Sid\":\"CloudWatchLogs\"},{\"Action\":[\"ecr:GetAuthorizationToken\"],\"Effect\":\"Allow\",\"Resource\":\"*\",\"Sid\":\"ECRAuth\"},{\"Action\":[\"ecr:BatchCheckLayerAvailability\",\"ecr:BatchGetImage\",\"ecr:CompleteLayerUpload\",\"ecr:GetDownloadUrlForLayer\",\"ecr:InitiateLayerUpload\",\"ecr:PutImage\",\"ecr:UploadLayerPart\"],\"Effect\":\"Allow\",\"Resource\":\"arn:aws:ecr:us-east-1:121505946292:repository/ecr-blacklist\",\"Sid\":\"ECRPushPull\"},{\"Action\":[\"codebuild:CreateReportGroup\",\"codebuild:CreateReport\",\"codebuild:UpdateReport\",\"codebuild:BatchPutTestCases\"],\"Effect\":\"Allow\",\"Resource\":\"arn:aws:codebuild:us-east-1:*:report-group/blacklist-dev-build*\",\"Sid\":\"CodeBuildReports\"}]}"
+              }
+            ],
+            "managed_policy_arns": [],
+            "max_session_duration": 3600,
+            "name": "blacklist-dev-codebuild-role",
+            "name_prefix": "",
+            "path": "/",
+            "permissions_boundary": "",
+            "tags": {
+              "Environment": "dev",
+              "ManagedBy": "terraform",
+              "Name": "blacklist-dev-codebuild-role",
+              "Project": "blacklist"
+            },
+            "tags_all": {
+              "Environment": "dev",
+              "ManagedBy": "terraform",
+              "Name": "blacklist-dev-codebuild-role",
+              "Project": "blacklist"
+            },
+            "unique_id": "AROARYSSRTK2NDYZTAQTM"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA=="
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_iam_role",
+      "name": "codedeploy",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "arn": "arn:aws:iam::121505946292:role/blacklist-dev-codedeploy-role",
+            "assume_role_policy": "{\"Statement\":[{\"Action\":\"sts:AssumeRole\",\"Effect\":\"Allow\",\"Principal\":{\"Service\":\"codedeploy.amazonaws.com\"}}],\"Version\":\"2012-10-17\"}",
+            "create_date": "2026-05-20T00:39:07Z",
+            "description": "",
+            "force_detach_policies": false,
+            "id": "blacklist-dev-codedeploy-role",
+            "inline_policy": [],
+            "managed_policy_arns": [
+              "arn:aws:iam::aws:policy/AWSCodeDeployRoleForECS"
+            ],
+            "max_session_duration": 3600,
+            "name": "blacklist-dev-codedeploy-role",
+            "name_prefix": "",
+            "path": "/",
+            "permissions_boundary": "",
+            "tags": {
+              "Environment": "dev",
+              "ManagedBy": "terraform",
+              "Name": "blacklist-dev-codedeploy-role",
+              "Project": "blacklist"
+            },
+            "tags_all": {
+              "Environment": "dev",
+              "ManagedBy": "terraform",
+              "Name": "blacklist-dev-codedeploy-role",
+              "Project": "blacklist"
+            },
+            "unique_id": "AROARYSSRTK2FGCBKVG37"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA=="
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_iam_role",
+      "name": "codepipeline",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "index_key": 0,
+          "schema_version": 0,
+          "attributes": {
+            "arn": "arn:aws:iam::121505946292:role/blacklist-dev-codepipeline-role",
+            "assume_role_policy": "{\"Statement\":[{\"Action\":\"sts:AssumeRole\",\"Effect\":\"Allow\",\"Principal\":{\"Service\":\"codepipeline.amazonaws.com\"}}],\"Version\":\"2012-10-17\"}",
+            "create_date": "2026-05-19T23:04:42Z",
+            "description": "",
+            "force_detach_policies": false,
+            "id": "blacklist-dev-codepipeline-role",
+            "inline_policy": [
+              {
+                "name": "blacklist-dev-codepipeline-policy",
+                "policy": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Action\":[\"s3:GetBucketVersioning\",\"s3:GetObject\",\"s3:GetObjectVersion\",\"s3:PutObject\"],\"Effect\":\"Allow\",\"Resource\":[\"arn:aws:s3:::blacklist-dev-pipeline-artifacts-6820581b\",\"arn:aws:s3:::blacklist-dev-pipeline-artifacts-6820581b/*\"],\"Sid\":\"PipelineArtifacts\"},{\"Action\":[\"codebuild:BatchGetBuilds\",\"codebuild:StartBuild\"],\"Effect\":\"Allow\",\"Resource\":\"arn:aws:codebuild:us-east-1:121505946292:project/blacklist-dev-build\",\"Sid\":\"StartCodeBuild\"},{\"Action\":[\"codestar-connections:UseConnection\"],\"Effect\":\"Allow\",\"Resource\":\"arn:aws:codeconnections:us-east-1:121505946292:connection/ae8877db-16ab-43c3-bdaa-a79a4d9654c0\",\"Sid\":\"UseGitHubConnection\"},{\"Action\":[\"ecs:DescribeServices\",\"ecs:DescribeTaskDefinition\",\"ecs:DescribeTasks\",\"ecs:ListTasks\",\"ecs:RegisterTaskDefinition\",\"ecs:UpdateService\",\"ecs:TagResource\"],\"Effect\":\"Allow\",\"Resource\":\"*\",\"Sid\":\"DeployToECS\"},{\"Action\":[\"codedeploy:CreateDeployment\",\"codedeploy:GetApplication\",\"codedeploy:GetApplicationRevision\",\"codedeploy:GetDeployment\",\"codedeploy:GetDeploymentConfig\",\"codedeploy:RegisterApplicationRevision\"],\"Effect\":\"Allow\",\"Resource\":\"*\",\"Sid\":\"CodeDeploy\"},{\"Action\":\"iam:PassRole\",\"Condition\":{\"StringEqualsIfExists\":{\"iam:PassedToService\":[\"ecs-tasks.amazonaws.com\"]}},\"Effect\":\"Allow\",\"Resource\":\"*\",\"Sid\":\"PassRoleForECS\"}]}"
+              }
+            ],
+            "managed_policy_arns": [],
+            "max_session_duration": 3600,
+            "name": "blacklist-dev-codepipeline-role",
+            "name_prefix": "",
+            "path": "/",
+            "permissions_boundary": "",
+            "tags": {
+              "Environment": "dev",
+              "ManagedBy": "terraform",
+              "Name": "blacklist-dev-codepipeline-role",
+              "Project": "blacklist"
+            },
+            "tags_all": {
+              "Environment": "dev",
+              "ManagedBy": "terraform",
+              "Name": "blacklist-dev-codepipeline-role",
+              "Project": "blacklist"
+            },
+            "unique_id": "AROARYSSRTK2B2VIFCL6D"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA=="
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_iam_role",
+      "name": "ecs_instance",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "arn": "arn:aws:iam::121505946292:role/blacklist-dev-ecs-instance-role",
+            "assume_role_policy": "{\"Statement\":[{\"Action\":\"sts:AssumeRole\",\"Effect\":\"Allow\",\"Principal\":{\"Service\":\"ec2.amazonaws.com\"}}],\"Version\":\"2012-10-17\"}",
+            "create_date": "2026-05-19T23:56:59Z",
+            "description": "",
+            "force_detach_policies": false,
+            "id": "blacklist-dev-ecs-instance-role",
+            "inline_policy": [],
+            "managed_policy_arns": [
+              "arn:aws:iam::aws:policy/service-role/AmazonEC2ContainerServiceforEC2Role"
+            ],
+            "max_session_duration": 3600,
+            "name": "blacklist-dev-ecs-instance-role",
+            "name_prefix": "",
+            "path": "/",
+            "permissions_boundary": "",
+            "tags": {
+              "Environment": "dev",
+              "ManagedBy": "terraform",
+              "Name": "blacklist-dev-ecs-instance-role",
+              "Project": "blacklist"
+            },
+            "tags_all": {
+              "Environment": "dev",
+              "ManagedBy": "terraform",
+              "Name": "blacklist-dev-ecs-instance-role",
+              "Project": "blacklist"
+            },
+            "unique_id": "AROARYSSRTK2N2Q5ZO56R"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA=="
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_iam_role",
+      "name": "ecs_task_execution",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "arn": "arn:aws:iam::121505946292:role/blacklist-dev-ecs-task-exec-role",
+            "assume_role_policy": "{\"Statement\":[{\"Action\":\"sts:AssumeRole\",\"Effect\":\"Allow\",\"Principal\":{\"Service\":\"ecs-tasks.amazonaws.com\"}}],\"Version\":\"2012-10-17\"}",
+            "create_date": "2026-05-19T23:56:59Z",
+            "description": "",
+            "force_detach_policies": false,
+            "id": "blacklist-dev-ecs-task-exec-role",
+            "inline_policy": [
+              {
+                "name": "blacklist-dev-ecs-task-exec-ssm",
+                "policy": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Action\":[\"ssm:GetParameters\",\"ssm:GetParameter\"],\"Effect\":\"Allow\",\"Resource\":\"arn:aws:ssm:us-east-1:121505946292:parameter/NEW_RELIC_LICENSE_KEY\",\"Sid\":\"SSMSecrets\"}]}"
+              }
+            ],
+            "managed_policy_arns": [
+              "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+            ],
+            "max_session_duration": 3600,
+            "name": "blacklist-dev-ecs-task-exec-role",
+            "name_prefix": "",
+            "path": "/",
+            "permissions_boundary": "",
+            "tags": {
+              "Environment": "dev",
+              "ManagedBy": "terraform",
+              "Name": "blacklist-dev-ecs-task-exec-role",
+              "Project": "blacklist"
+            },
+            "tags_all": {
+              "Environment": "dev",
+              "ManagedBy": "terraform",
+              "Name": "blacklist-dev-ecs-task-exec-role",
+              "Project": "blacklist"
+            },
+            "unique_id": "AROARYSSRTK2BB4QOLCQU"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA=="
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_iam_role_policy",
+      "name": "codebuild",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "id": "blacklist-dev-codebuild-role:blacklist-dev-codebuild-policy",
+            "name": "blacklist-dev-codebuild-policy",
+            "name_prefix": "",
+            "policy": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Action\":[\"logs:CreateLogGroup\",\"logs:CreateLogStream\",\"logs:PutLogEvents\"],\"Effect\":\"Allow\",\"Resource\":\"arn:aws:logs:us-east-1:*:log-group:/aws/codebuild/blacklist-dev-build*\",\"Sid\":\"CloudWatchLogs\"},{\"Action\":[\"ecr:GetAuthorizationToken\"],\"Effect\":\"Allow\",\"Resource\":\"*\",\"Sid\":\"ECRAuth\"},{\"Action\":[\"ecr:BatchCheckLayerAvailability\",\"ecr:BatchGetImage\",\"ecr:CompleteLayerUpload\",\"ecr:GetDownloadUrlForLayer\",\"ecr:InitiateLayerUpload\",\"ecr:PutImage\",\"ecr:UploadLayerPart\"],\"Effect\":\"Allow\",\"Resource\":\"arn:aws:ecr:us-east-1:121505946292:repository/ecr-blacklist\",\"Sid\":\"ECRPushPull\"},{\"Action\":[\"codebuild:CreateReportGroup\",\"codebuild:CreateReport\",\"codebuild:UpdateReport\",\"codebuild:BatchPutTestCases\"],\"Effect\":\"Allow\",\"Resource\":\"arn:aws:codebuild:us-east-1:*:report-group/blacklist-dev-build*\",\"Sid\":\"CodeBuildReports\"}]}",
+            "role": "blacklist-dev-codebuild-role"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_ecr_repository.blacklist",
+            "aws_iam_role.codebuild"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_iam_role_policy",
+      "name": "codebuild_pipeline_artifacts",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "index_key": 0,
+          "schema_version": 0,
+          "attributes": {
+            "id": "blacklist-dev-codebuild-role:blacklist-dev-codebuild-pipeline-artifacts-policy",
+            "name": "blacklist-dev-codebuild-pipeline-artifacts-policy",
+            "name_prefix": "",
+            "policy": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Action\":[\"s3:GetBucketAcl\",\"s3:GetBucketLocation\",\"s3:GetObject\",\"s3:GetObjectVersion\",\"s3:ListBucket\",\"s3:PutObject\"],\"Effect\":\"Allow\",\"Resource\":[\"arn:aws:s3:::blacklist-dev-pipeline-artifacts-6820581b\",\"arn:aws:s3:::blacklist-dev-pipeline-artifacts-6820581b/*\"],\"Sid\":\"PipelineArtifactsReadWrite\"}]}",
+            "role": "blacklist-dev-codebuild-role"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_iam_role.codebuild",
+            "aws_s3_bucket.pipeline_artifacts",
+            "random_id.bucket_suffix"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_iam_role_policy",
+      "name": "codepipeline",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "index_key": 0,
+          "schema_version": 0,
+          "attributes": {
+            "id": "blacklist-dev-codepipeline-role:blacklist-dev-codepipeline-policy",
+            "name": "blacklist-dev-codepipeline-policy",
+            "name_prefix": "",
+            "policy": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Action\":[\"s3:GetBucketVersioning\",\"s3:GetObject\",\"s3:GetObjectVersion\",\"s3:PutObject\"],\"Effect\":\"Allow\",\"Resource\":[\"arn:aws:s3:::blacklist-dev-pipeline-artifacts-6820581b\",\"arn:aws:s3:::blacklist-dev-pipeline-artifacts-6820581b/*\"],\"Sid\":\"PipelineArtifacts\"},{\"Action\":[\"codebuild:BatchGetBuilds\",\"codebuild:StartBuild\"],\"Effect\":\"Allow\",\"Resource\":\"arn:aws:codebuild:us-east-1:121505946292:project/blacklist-dev-build\",\"Sid\":\"StartCodeBuild\"},{\"Action\":[\"codestar-connections:UseConnection\"],\"Effect\":\"Allow\",\"Resource\":\"arn:aws:codeconnections:us-east-1:121505946292:connection/ae8877db-16ab-43c3-bdaa-a79a4d9654c0\",\"Sid\":\"UseGitHubConnection\"},{\"Action\":[\"ecs:DescribeServices\",\"ecs:DescribeTaskDefinition\",\"ecs:DescribeTasks\",\"ecs:ListTasks\",\"ecs:RegisterTaskDefinition\",\"ecs:UpdateService\",\"ecs:TagResource\"],\"Effect\":\"Allow\",\"Resource\":\"*\",\"Sid\":\"DeployToECS\"},{\"Action\":[\"codedeploy:CreateDeployment\",\"codedeploy:GetApplication\",\"codedeploy:GetApplicationRevision\",\"codedeploy:GetDeployment\",\"codedeploy:GetDeploymentConfig\",\"codedeploy:RegisterApplicationRevision\"],\"Effect\":\"Allow\",\"Resource\":\"*\",\"Sid\":\"CodeDeploy\"},{\"Action\":\"iam:PassRole\",\"Condition\":{\"StringEqualsIfExists\":{\"iam:PassedToService\":[\"ecs-tasks.amazonaws.com\"]}},\"Effect\":\"Allow\",\"Resource\":\"*\",\"Sid\":\"PassRoleForECS\"}]}",
+            "role": "blacklist-dev-codepipeline-role"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_codebuild_project.blacklist",
+            "aws_ecr_repository.blacklist",
+            "aws_iam_role.codebuild",
+            "aws_iam_role.codepipeline",
+            "aws_iam_role.ecs_task_execution",
+            "aws_s3_bucket.pipeline_artifacts",
+            "data.aws_caller_identity.current",
+            "random_id.bucket_suffix"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_iam_role_policy",
+      "name": "ecs_task_execution_ssm",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "id": "blacklist-dev-ecs-task-exec-role:blacklist-dev-ecs-task-exec-ssm",
+            "name": "blacklist-dev-ecs-task-exec-ssm",
+            "name_prefix": "",
+            "policy": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Action\":[\"ssm:GetParameters\",\"ssm:GetParameter\"],\"Effect\":\"Allow\",\"Resource\":\"arn:aws:ssm:us-east-1:121505946292:parameter/NEW_RELIC_LICENSE_KEY\",\"Sid\":\"SSMSecrets\"}]}",
+            "role": "blacklist-dev-ecs-task-exec-role"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_iam_role.ecs_task_execution",
+            "data.aws_caller_identity.current"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_iam_role_policy_attachment",
+      "name": "codedeploy_ecs",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "id": "blacklist-dev-codedeploy-role-20260520003907582000000001",
+            "policy_arn": "arn:aws:iam::aws:policy/AWSCodeDeployRoleForECS",
+            "role": "blacklist-dev-codedeploy-role"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_iam_role.codedeploy"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_iam_role_policy_attachment",
+      "name": "ecs_instance",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "id": "blacklist-dev-ecs-instance-role-20260519235659800400000001",
+            "policy_arn": "arn:aws:iam::aws:policy/service-role/AmazonEC2ContainerServiceforEC2Role",
+            "role": "blacklist-dev-ecs-instance-role"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_iam_role.ecs_instance"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_iam_role_policy_attachment",
+      "name": "ecs_task_execution",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "id": "blacklist-dev-ecs-task-exec-role-20260519235659960500000002",
+            "policy_arn": "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy",
+            "role": "blacklist-dev-ecs-task-exec-role"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_iam_role.ecs_task_execution"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_internet_gateway",
+      "name": "main",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "arn": "arn:aws:ec2:us-east-1:121505946292:internet-gateway/igw-035f5f728b49a37b4",
+            "id": "igw-035f5f728b49a37b4",
+            "owner_id": "121505946292",
+            "tags": {
+              "Environment": "dev",
+              "ManagedBy": "terraform",
+              "Name": "blacklist-dev-igw",
+              "Project": "blacklist"
+            },
+            "tags_all": {
+              "Environment": "dev",
+              "ManagedBy": "terraform",
+              "Name": "blacklist-dev-igw",
+              "Project": "blacklist"
+            },
+            "timeouts": null,
+            "vpc_id": "vpc-0277b4fa9d213028e"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxMjAwMDAwMDAwMDAwLCJkZWxldGUiOjEyMDAwMDAwMDAwMDAsInVwZGF0ZSI6MTIwMDAwMDAwMDAwMH19",
+          "dependencies": [
+            "aws_vpc.main"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_launch_template",
+      "name": "ecs",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "arn": "arn:aws:ec2:us-east-1:121505946292:launch-template/lt-0a3d40ac04c54a60d",
+            "block_device_mappings": [],
+            "capacity_reservation_specification": [],
+            "cpu_options": [],
+            "credit_specification": [],
+            "default_version": 1,
+            "description": "",
+            "disable_api_stop": false,
+            "disable_api_termination": false,
+            "ebs_optimized": "",
+            "elastic_gpu_specifications": [],
+            "elastic_inference_accelerator": [],
+            "enclave_options": [],
+            "hibernation_options": [],
+            "iam_instance_profile": [
+              {
+                "arn": "",
+                "name": "blacklist-dev-ecs-instance-profile"
+              }
+            ],
+            "id": "lt-0a3d40ac04c54a60d",
+            "image_id": "ami-005bc6e80d3c338f8",
+            "instance_initiated_shutdown_behavior": "",
+            "instance_market_options": [],
+            "instance_requirements": [],
+            "instance_type": "t3.micro",
+            "kernel_id": "",
+            "key_name": "",
+            "latest_version": 1,
+            "license_specification": [],
+            "maintenance_options": [],
+            "metadata_options": [],
+            "monitoring": [],
+            "name": "blacklist-dev-ecs-lt-20260519235933102800000003",
+            "name_prefix": "blacklist-dev-ecs-lt-",
+            "network_interfaces": [],
+            "placement": [],
+            "private_dns_name_options": [],
+            "ram_disk_id": "",
+            "security_group_names": [],
+            "tag_specifications": [
+              {
+                "resource_type": "instance",
+                "tags": {
+                  "Environment": "dev",
+                  "ManagedBy": "terraform",
+                  "Name": "blacklist-dev-ecs-node",
+                  "Project": "blacklist"
+                }
+              }
+            ],
+            "tags": {
+              "Environment": "dev",
+              "ManagedBy": "terraform",
+              "Name": "blacklist-dev-ecs-lt",
+              "Project": "blacklist"
+            },
+            "tags_all": {
+              "Environment": "dev",
+              "ManagedBy": "terraform",
+              "Name": "blacklist-dev-ecs-lt",
+              "Project": "blacklist"
+            },
+            "update_default_version": null,
+            "user_data": "IyEvYmluL2Jhc2gKZWNobyBFQ1NfQ0xVU1RFUj1ibGFja2xpc3QtZGV2LWNsdXN0ZXIgPj4gL2V0Yy9lY3MvZWNzLmNvbmZpZwplY2hvIEVDU19FTkFCTEVfQ09OVEFJTkVSX01FVEFEQVRBPXRydWUgPj4gL2V0Yy9lY3MvZWNzLmNvbmZpZwo=",
+            "vpc_security_group_ids": [
+              "sg-06b3c52c279c9dc5c"
+            ]
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_ecs_cluster.main",
+            "aws_iam_instance_profile.ecs_instance",
+            "aws_iam_role.ecs_instance",
+            "aws_security_group.alb",
+            "aws_security_group.app",
+            "aws_vpc.main",
+            "data.aws_ami.ecs_optimized"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_lb",
+      "name": "main",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "access_logs": [
+              {
+                "bucket": "",
+                "enabled": false,
+                "prefix": ""
+              }
+            ],
+            "arn": "arn:aws:elasticloadbalancing:us-east-1:121505946292:loadbalancer/app/blacklist-dev-alb/3bfe91949ba3b61b",
+            "arn_suffix": "app/blacklist-dev-alb/3bfe91949ba3b61b",
+            "client_keep_alive": 3600,
+            "connection_logs": [
+              {
+                "bucket": "",
+                "enabled": false,
+                "prefix": ""
+              }
+            ],
+            "customer_owned_ipv4_pool": "",
+            "desync_mitigation_mode": "defensive",
+            "dns_name": "blacklist-dev-alb-877578835.us-east-1.elb.amazonaws.com",
+            "dns_record_client_routing_policy": null,
+            "drop_invalid_header_fields": false,
+            "enable_cross_zone_load_balancing": true,
+            "enable_deletion_protection": false,
+            "enable_http2": true,
+            "enable_tls_version_and_cipher_suite_headers": false,
+            "enable_waf_fail_open": false,
+            "enable_xff_client_port": false,
+            "enable_zonal_shift": false,
+            "enforce_security_group_inbound_rules_on_private_link_traffic": "",
+            "id": "arn:aws:elasticloadbalancing:us-east-1:121505946292:loadbalancer/app/blacklist-dev-alb/3bfe91949ba3b61b",
+            "idle_timeout": 60,
+            "internal": false,
+            "ip_address_type": "ipv4",
+            "ipam_pools": [],
+            "load_balancer_type": "application",
+            "minimum_load_balancer_capacity": [],
+            "name": "blacklist-dev-alb",
+            "name_prefix": "",
+            "preserve_host_header": false,
+            "security_groups": [
+              "sg-0e61fd23fd50623ad"
+            ],
+            "subnet_mapping": [
+              {
+                "allocation_id": "",
+                "ipv6_address": "",
+                "outpost_id": "",
+                "private_ipv4_address": "",
+                "subnet_id": "subnet-01ffa04fd72ce9cab"
+              },
+              {
+                "allocation_id": "",
+                "ipv6_address": "",
+                "outpost_id": "",
+                "private_ipv4_address": "",
+                "subnet_id": "subnet-04a92937dbfb0d1ee"
+              }
+            ],
+            "subnets": [
+              "subnet-01ffa04fd72ce9cab",
+              "subnet-04a92937dbfb0d1ee"
+            ],
+            "tags": {
+              "Environment": "dev",
+              "ManagedBy": "terraform",
+              "Name": "blacklist-dev-alb",
+              "Project": "blacklist"
+            },
+            "tags_all": {
+              "Environment": "dev",
+              "ManagedBy": "terraform",
+              "Name": "blacklist-dev-alb",
+              "Project": "blacklist"
+            },
+            "timeouts": null,
+            "vpc_id": "vpc-0277b4fa9d213028e",
+            "xff_header_processing_mode": "append",
+            "zone_id": "Z35SXDOTRQ7X7K"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjo2MDAwMDAwMDAwMDAsImRlbGV0ZSI6NjAwMDAwMDAwMDAwLCJ1cGRhdGUiOjYwMDAwMDAwMDAwMH19",
+          "dependencies": [
+            "aws_security_group.alb",
+            "aws_subnet.public",
+            "aws_vpc.main",
+            "data.aws_availability_zones.available"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_lb_listener",
+      "name": "http",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "alpn_policy": null,
+            "arn": "arn:aws:elasticloadbalancing:us-east-1:121505946292:listener/app/blacklist-dev-alb/3bfe91949ba3b61b/76ffb95b4dabb13f",
+            "certificate_arn": null,
+            "default_action": [
+              {
+                "authenticate_cognito": [],
+                "authenticate_oidc": [],
+                "fixed_response": [],
+                "forward": [],
+                "order": 1,
+                "redirect": [],
+                "target_group_arn": "arn:aws:elasticloadbalancing:us-east-1:121505946292:targetgroup/blacklist-dev-tg/b2bbb93927d381c2",
+                "type": "forward"
+              }
+            ],
+            "id": "arn:aws:elasticloadbalancing:us-east-1:121505946292:listener/app/blacklist-dev-alb/3bfe91949ba3b61b/76ffb95b4dabb13f",
+            "load_balancer_arn": "arn:aws:elasticloadbalancing:us-east-1:121505946292:loadbalancer/app/blacklist-dev-alb/3bfe91949ba3b61b",
+            "mutual_authentication": [],
+            "port": 80,
+            "protocol": "HTTP",
+            "routing_http_request_x_amzn_mtls_clientcert_header_name": null,
+            "routing_http_request_x_amzn_mtls_clientcert_issuer_header_name": null,
+            "routing_http_request_x_amzn_mtls_clientcert_leaf_header_name": null,
+            "routing_http_request_x_amzn_mtls_clientcert_serial_number_header_name": null,
+            "routing_http_request_x_amzn_mtls_clientcert_subject_header_name": null,
+            "routing_http_request_x_amzn_mtls_clientcert_validity_header_name": null,
+            "routing_http_request_x_amzn_tls_cipher_suite_header_name": null,
+            "routing_http_request_x_amzn_tls_version_header_name": null,
+            "routing_http_response_access_control_allow_credentials_header_value": "",
+            "routing_http_response_access_control_allow_headers_header_value": "",
+            "routing_http_response_access_control_allow_methods_header_value": "",
+            "routing_http_response_access_control_allow_origin_header_value": "",
+            "routing_http_response_access_control_expose_headers_header_value": "",
+            "routing_http_response_access_control_max_age_header_value": "",
+            "routing_http_response_content_security_policy_header_value": "",
+            "routing_http_response_server_enabled": true,
+            "routing_http_response_strict_transport_security_header_value": "",
+            "routing_http_response_x_content_type_options_header_value": "",
+            "routing_http_response_x_frame_options_header_value": "",
+            "ssl_policy": "",
+            "tags": {
+              "Environment": "dev",
+              "ManagedBy": "terraform",
+              "Name": "blacklist-dev-listener-http",
+              "Project": "blacklist"
+            },
+            "tags_all": {
+              "Environment": "dev",
+              "ManagedBy": "terraform",
+              "Name": "blacklist-dev-listener-http",
+              "Project": "blacklist"
+            },
+            "tcp_idle_timeout_seconds": null,
+            "timeouts": null
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjozMDAwMDAwMDAwMDAsInVwZGF0ZSI6MzAwMDAwMDAwMDAwfX0=",
+          "dependencies": [
+            "aws_lb.main",
+            "aws_lb_target_group.app",
+            "aws_lb_target_group.blue",
+            "aws_security_group.alb",
+            "aws_subnet.public",
+            "aws_vpc.main",
+            "data.aws_availability_zones.available"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_lb_listener",
+      "name": "test",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "alpn_policy": null,
+            "arn": "arn:aws:elasticloadbalancing:us-east-1:121505946292:listener/app/blacklist-dev-alb/3bfe91949ba3b61b/1ce094a7d89528dc",
+            "certificate_arn": null,
+            "default_action": [
+              {
+                "authenticate_cognito": [],
+                "authenticate_oidc": [],
+                "fixed_response": [],
+                "forward": [],
+                "order": 1,
+                "redirect": [],
+                "target_group_arn": "arn:aws:elasticloadbalancing:us-east-1:121505946292:targetgroup/blacklist-dev-tg-green/bdcf417e5ac4ad91",
+                "type": "forward"
+              }
+            ],
+            "id": "arn:aws:elasticloadbalancing:us-east-1:121505946292:listener/app/blacklist-dev-alb/3bfe91949ba3b61b/1ce094a7d89528dc",
+            "load_balancer_arn": "arn:aws:elasticloadbalancing:us-east-1:121505946292:loadbalancer/app/blacklist-dev-alb/3bfe91949ba3b61b",
+            "mutual_authentication": [],
+            "port": 8080,
+            "protocol": "HTTP",
+            "routing_http_request_x_amzn_mtls_clientcert_header_name": null,
+            "routing_http_request_x_amzn_mtls_clientcert_issuer_header_name": null,
+            "routing_http_request_x_amzn_mtls_clientcert_leaf_header_name": null,
+            "routing_http_request_x_amzn_mtls_clientcert_serial_number_header_name": null,
+            "routing_http_request_x_amzn_mtls_clientcert_subject_header_name": null,
+            "routing_http_request_x_amzn_mtls_clientcert_validity_header_name": null,
+            "routing_http_request_x_amzn_tls_cipher_suite_header_name": null,
+            "routing_http_request_x_amzn_tls_version_header_name": null,
+            "routing_http_response_access_control_allow_credentials_header_value": "",
+            "routing_http_response_access_control_allow_headers_header_value": "",
+            "routing_http_response_access_control_allow_methods_header_value": "",
+            "routing_http_response_access_control_allow_origin_header_value": "",
+            "routing_http_response_access_control_expose_headers_header_value": "",
+            "routing_http_response_access_control_max_age_header_value": "",
+            "routing_http_response_content_security_policy_header_value": "",
+            "routing_http_response_server_enabled": true,
+            "routing_http_response_strict_transport_security_header_value": "",
+            "routing_http_response_x_content_type_options_header_value": "",
+            "routing_http_response_x_frame_options_header_value": "",
+            "ssl_policy": "",
+            "tags": {
+              "Environment": "dev",
+              "ManagedBy": "terraform",
+              "Name": "blacklist-dev-listener-test",
+              "Project": "blacklist"
+            },
+            "tags_all": {
+              "Environment": "dev",
+              "ManagedBy": "terraform",
+              "Name": "blacklist-dev-listener-test",
+              "Project": "blacklist"
+            },
+            "tcp_idle_timeout_seconds": null,
+            "timeouts": null
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjozMDAwMDAwMDAwMDAsInVwZGF0ZSI6MzAwMDAwMDAwMDAwfX0=",
+          "dependencies": [
+            "aws_lb.main",
+            "aws_lb_target_group.green",
+            "aws_security_group.alb",
+            "aws_subnet.public",
+            "aws_vpc.main",
+            "data.aws_availability_zones.available"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_lb_target_group",
+      "name": "app",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "arn": "arn:aws:elasticloadbalancing:us-east-1:121505946292:targetgroup/blacklist-dev-tg/b2bbb93927d381c2",
+            "arn_suffix": "targetgroup/blacklist-dev-tg/b2bbb93927d381c2",
+            "connection_termination": null,
+            "deregistration_delay": "300",
+            "health_check": [
+              {
+                "enabled": true,
+                "healthy_threshold": 2,
+                "interval": 30,
+                "matcher": "200",
+                "path": "/health",
+                "port": "traffic-port",
+                "protocol": "HTTP",
+                "timeout": 5,
+                "unhealthy_threshold": 3
+              }
+            ],
+            "id": "arn:aws:elasticloadbalancing:us-east-1:121505946292:targetgroup/blacklist-dev-tg/b2bbb93927d381c2",
+            "ip_address_type": "ipv4",
+            "lambda_multi_value_headers_enabled": false,
+            "load_balancer_arns": [
+              "arn:aws:elasticloadbalancing:us-east-1:121505946292:loadbalancer/app/blacklist-dev-alb/3bfe91949ba3b61b"
+            ],
+            "load_balancing_algorithm_type": "round_robin",
+            "load_balancing_anomaly_mitigation": "off",
+            "load_balancing_cross_zone_enabled": "use_load_balancer_configuration",
+            "name": "blacklist-dev-tg",
+            "name_prefix": "",
+            "port": 5000,
+            "preserve_client_ip": null,
+            "protocol": "HTTP",
+            "protocol_version": "HTTP1",
+            "proxy_protocol_v2": false,
+            "slow_start": 0,
+            "stickiness": [
+              {
+                "cookie_duration": 86400,
+                "cookie_name": "",
+                "enabled": false,
+                "type": "lb_cookie"
+              }
+            ],
+            "tags": {
+              "Environment": "dev",
+              "ManagedBy": "terraform",
+              "Name": "blacklist-dev-tg",
+              "Project": "blacklist"
+            },
+            "tags_all": {
+              "Environment": "dev",
+              "ManagedBy": "terraform",
+              "Name": "blacklist-dev-tg",
+              "Project": "blacklist"
+            },
+            "target_failover": [
+              {
+                "on_deregistration": null,
+                "on_unhealthy": null
+              }
+            ],
+            "target_group_health": [
+              {
+                "dns_failover": [
+                  {
+                    "minimum_healthy_targets_count": "1",
+                    "minimum_healthy_targets_percentage": "off"
+                  }
+                ],
+                "unhealthy_state_routing": [
+                  {
+                    "minimum_healthy_targets_count": 1,
+                    "minimum_healthy_targets_percentage": "off"
+                  }
+                ]
+              }
+            ],
+            "target_health_state": [
+              {
+                "enable_unhealthy_connection_termination": null,
+                "unhealthy_draining_interval": null
+              }
+            ],
+            "target_type": "instance",
+            "vpc_id": "vpc-0277b4fa9d213028e"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_vpc.main"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_lb_target_group",
+      "name": "green",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "arn": "arn:aws:elasticloadbalancing:us-east-1:121505946292:targetgroup/blacklist-dev-tg-green/bdcf417e5ac4ad91",
+            "arn_suffix": "targetgroup/blacklist-dev-tg-green/bdcf417e5ac4ad91",
+            "connection_termination": null,
+            "deregistration_delay": "300",
+            "health_check": [
+              {
+                "enabled": true,
+                "healthy_threshold": 2,
+                "interval": 30,
+                "matcher": "200",
+                "path": "/health",
+                "port": "traffic-port",
+                "protocol": "HTTP",
+                "timeout": 5,
+                "unhealthy_threshold": 3
+              }
+            ],
+            "id": "arn:aws:elasticloadbalancing:us-east-1:121505946292:targetgroup/blacklist-dev-tg-green/bdcf417e5ac4ad91",
+            "ip_address_type": "ipv4",
+            "lambda_multi_value_headers_enabled": false,
+            "load_balancer_arns": [
+              "arn:aws:elasticloadbalancing:us-east-1:121505946292:loadbalancer/app/blacklist-dev-alb/3bfe91949ba3b61b"
+            ],
+            "load_balancing_algorithm_type": "round_robin",
+            "load_balancing_anomaly_mitigation": "off",
+            "load_balancing_cross_zone_enabled": "use_load_balancer_configuration",
+            "name": "blacklist-dev-tg-green",
+            "name_prefix": "",
+            "port": 5000,
+            "preserve_client_ip": null,
+            "protocol": "HTTP",
+            "protocol_version": "HTTP1",
+            "proxy_protocol_v2": false,
+            "slow_start": 0,
+            "stickiness": [
+              {
+                "cookie_duration": 86400,
+                "cookie_name": "",
+                "enabled": false,
+                "type": "lb_cookie"
+              }
+            ],
+            "tags": {
+              "Environment": "dev",
+              "ManagedBy": "terraform",
+              "Name": "blacklist-dev-tg-green",
+              "Project": "blacklist"
+            },
+            "tags_all": {
+              "Environment": "dev",
+              "ManagedBy": "terraform",
+              "Name": "blacklist-dev-tg-green",
+              "Project": "blacklist"
+            },
+            "target_failover": [
+              {
+                "on_deregistration": null,
+                "on_unhealthy": null
+              }
+            ],
+            "target_group_health": [
+              {
+                "dns_failover": [
+                  {
+                    "minimum_healthy_targets_count": "1",
+                    "minimum_healthy_targets_percentage": "off"
+                  }
+                ],
+                "unhealthy_state_routing": [
+                  {
+                    "minimum_healthy_targets_count": 1,
+                    "minimum_healthy_targets_percentage": "off"
+                  }
+                ]
+              }
+            ],
+            "target_health_state": [
+              {
+                "enable_unhealthy_connection_termination": null,
+                "unhealthy_draining_interval": null
+              }
+            ],
+            "target_type": "instance",
+            "vpc_id": "vpc-0277b4fa9d213028e"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_vpc.main"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_route_table",
+      "name": "public",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "arn": "arn:aws:ec2:us-east-1:121505946292:route-table/rtb-0eaa2231c9ddf4416",
+            "id": "rtb-0eaa2231c9ddf4416",
+            "owner_id": "121505946292",
+            "propagating_vgws": [],
+            "route": [
+              {
+                "carrier_gateway_id": "",
+                "cidr_block": "0.0.0.0/0",
+                "core_network_arn": "",
+                "destination_prefix_list_id": "",
+                "egress_only_gateway_id": "",
+                "gateway_id": "igw-035f5f728b49a37b4",
+                "ipv6_cidr_block": "",
+                "local_gateway_id": "",
+                "nat_gateway_id": "",
+                "network_interface_id": "",
+                "transit_gateway_id": "",
+                "vpc_endpoint_id": "",
+                "vpc_peering_connection_id": ""
+              }
+            ],
+            "tags": {
+              "Environment": "dev",
+              "ManagedBy": "terraform",
+              "Name": "blacklist-dev-public-rt",
+              "Project": "blacklist"
+            },
+            "tags_all": {
+              "Environment": "dev",
+              "ManagedBy": "terraform",
+              "Name": "blacklist-dev-public-rt",
+              "Project": "blacklist"
+            },
+            "timeouts": null,
+            "vpc_id": "vpc-0277b4fa9d213028e"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjozMDAwMDAwMDAwMDAsImRlbGV0ZSI6MzAwMDAwMDAwMDAwLCJ1cGRhdGUiOjEyMDAwMDAwMDAwMH19",
+          "dependencies": [
+            "aws_internet_gateway.main",
+            "aws_vpc.main"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_route_table_association",
+      "name": "public",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "index_key": 0,
+          "schema_version": 0,
+          "attributes": {
+            "gateway_id": "",
+            "id": "rtbassoc-065484cfbdb5ed646",
+            "route_table_id": "rtb-0eaa2231c9ddf4416",
+            "subnet_id": "subnet-04a92937dbfb0d1ee",
+            "timeouts": null
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjozMDAwMDAwMDAwMDAsImRlbGV0ZSI6MzAwMDAwMDAwMDAwLCJ1cGRhdGUiOjEyMDAwMDAwMDAwMH19",
+          "dependencies": [
+            "aws_internet_gateway.main",
+            "aws_route_table.public",
+            "aws_subnet.public",
+            "aws_vpc.main",
+            "data.aws_availability_zones.available"
+          ]
+        },
+        {
+          "index_key": 1,
+          "schema_version": 0,
+          "attributes": {
+            "gateway_id": "",
+            "id": "rtbassoc-030364f5e947dfc3d",
+            "route_table_id": "rtb-0eaa2231c9ddf4416",
+            "subnet_id": "subnet-01ffa04fd72ce9cab",
+            "timeouts": null
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjozMDAwMDAwMDAwMDAsImRlbGV0ZSI6MzAwMDAwMDAwMDAwLCJ1cGRhdGUiOjEyMDAwMDAwMDAwMH19",
+          "dependencies": [
+            "aws_internet_gateway.main",
+            "aws_route_table.public",
+            "aws_subnet.public",
+            "aws_vpc.main",
+            "data.aws_availability_zones.available"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_s3_bucket",
+      "name": "pipeline_artifacts",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "index_key": 0,
+          "schema_version": 0,
+          "attributes": {
+            "acceleration_status": "",
+            "acl": null,
+            "arn": "arn:aws:s3:::blacklist-dev-pipeline-artifacts-6820581b",
+            "bucket": "blacklist-dev-pipeline-artifacts-6820581b",
+            "bucket_domain_name": "blacklist-dev-pipeline-artifacts-6820581b.s3.amazonaws.com",
+            "bucket_prefix": "",
+            "bucket_regional_domain_name": "blacklist-dev-pipeline-artifacts-6820581b.s3.us-east-1.amazonaws.com",
+            "cors_rule": [],
+            "force_destroy": true,
+            "grant": [
+              {
+                "id": "2e8b92990d0aa5a5e25ee666761989c19276317052170cf58fb49f03b8c9b039",
+                "permissions": [
+                  "FULL_CONTROL"
+                ],
+                "type": "CanonicalUser",
+                "uri": ""
+              }
+            ],
+            "hosted_zone_id": "Z3AQBSTGFYJSTF",
+            "id": "blacklist-dev-pipeline-artifacts-6820581b",
+            "lifecycle_rule": [],
+            "logging": [],
+            "object_lock_configuration": [],
+            "object_lock_enabled": false,
+            "policy": "",
+            "region": "us-east-1",
+            "replication_configuration": [],
+            "request_payer": "BucketOwner",
+            "server_side_encryption_configuration": [
+              {
+                "rule": [
+                  {
+                    "apply_server_side_encryption_by_default": [
+                      {
+                        "kms_master_key_id": "",
+                        "sse_algorithm": "AES256"
+                      }
+                    ],
+                    "bucket_key_enabled": false
+                  }
+                ]
+              }
+            ],
+            "tags": {
+              "Environment": "dev",
+              "ManagedBy": "terraform",
+              "Name": "blacklist-dev-pipeline-artifacts",
+              "Project": "blacklist"
+            },
+            "tags_all": {
+              "Environment": "dev",
+              "ManagedBy": "terraform",
+              "Name": "blacklist-dev-pipeline-artifacts",
+              "Project": "blacklist"
+            },
+            "timeouts": null,
+            "versioning": [
+              {
+                "enabled": true,
+                "mfa_delete": false
+              }
+            ],
+            "website": [],
+            "website_domain": null,
+            "website_endpoint": null
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxMjAwMDAwMDAwMDAwLCJkZWxldGUiOjM2MDAwMDAwMDAwMDAsInJlYWQiOjEyMDAwMDAwMDAwMDAsInVwZGF0ZSI6MTIwMDAwMDAwMDAwMH19",
+          "dependencies": [
+            "random_id.bucket_suffix"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_s3_bucket_versioning",
+      "name": "pipeline_artifacts",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "index_key": 0,
+          "schema_version": 0,
+          "attributes": {
+            "bucket": "blacklist-dev-pipeline-artifacts-6820581b",
+            "expected_bucket_owner": "",
+            "id": "blacklist-dev-pipeline-artifacts-6820581b",
+            "mfa": null,
+            "versioning_configuration": [
+              {
+                "mfa_delete": "",
+                "status": "Enabled"
+              }
+            ]
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_s3_bucket.pipeline_artifacts",
+            "random_id.bucket_suffix"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_security_group",
+      "name": "alb",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 1,
+          "attributes": {
+            "arn": "arn:aws:ec2:us-east-1:121505946292:security-group/sg-0e61fd23fd50623ad",
+            "description": "Security group for the Application Load Balancer",
+            "egress": [
+              {
+                "cidr_blocks": [
+                  "0.0.0.0/0"
+                ],
+                "description": "Allow all outbound traffic",
+                "from_port": 0,
+                "ipv6_cidr_blocks": [],
+                "prefix_list_ids": [],
+                "protocol": "-1",
+                "security_groups": [],
+                "self": false,
+                "to_port": 0
+              }
+            ],
+            "id": "sg-0e61fd23fd50623ad",
+            "ingress": [
+              {
+                "cidr_blocks": [
+                  "0.0.0.0/0"
+                ],
+                "description": "HTTP production traffic",
+                "from_port": 80,
+                "ipv6_cidr_blocks": [],
+                "prefix_list_ids": [],
+                "protocol": "tcp",
+                "security_groups": [],
+                "self": false,
+                "to_port": 80
+              },
+              {
+                "cidr_blocks": [
+                  "0.0.0.0/0"
+                ],
+                "description": "HTTP test traffic for CodeDeploy Blue/Green validation",
+                "from_port": 8080,
+                "ipv6_cidr_blocks": [],
+                "prefix_list_ids": [],
+                "protocol": "tcp",
+                "security_groups": [],
+                "self": false,
+                "to_port": 8080
+              }
+            ],
+            "name": "blacklist-dev-alb-sg",
+            "name_prefix": "",
+            "owner_id": "121505946292",
+            "revoke_rules_on_delete": false,
+            "tags": {
+              "Environment": "dev",
+              "ManagedBy": "terraform",
+              "Name": "blacklist-dev-alb-sg",
+              "Project": "blacklist"
+            },
+            "tags_all": {
+              "Environment": "dev",
+              "ManagedBy": "terraform",
+              "Name": "blacklist-dev-alb-sg",
+              "Project": "blacklist"
+            },
+            "timeouts": null,
+            "vpc_id": "vpc-0277b4fa9d213028e"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjo2MDAwMDAwMDAwMDAsImRlbGV0ZSI6OTAwMDAwMDAwMDAwfSwic2NoZW1hX3ZlcnNpb24iOiIxIn0=",
+          "dependencies": [
+            "aws_vpc.main"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_security_group",
+      "name": "app",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 1,
+          "attributes": {
+            "arn": "arn:aws:ec2:us-east-1:121505946292:security-group/sg-06b3c52c279c9dc5c",
+            "description": "Security group for the Blacklist application (EC2 instances)",
+            "egress": [
+              {
+                "cidr_blocks": [
+                  "0.0.0.0/0"
+                ],
+                "description": "Allow all outbound traffic",
+                "from_port": 0,
+                "ipv6_cidr_blocks": [],
+                "prefix_list_ids": [],
+                "protocol": "-1",
+                "security_groups": [],
+                "self": false,
+                "to_port": 0
+              }
+            ],
+            "id": "sg-06b3c52c279c9dc5c",
+            "ingress": [
+              {
+                "cidr_blocks": [],
+                "description": "All TCP from ALB for ECS bridge-mode dynamic ports",
+                "from_port": 0,
+                "ipv6_cidr_blocks": [],
+                "prefix_list_ids": [],
+                "protocol": "tcp",
+                "security_groups": [
+                  "sg-0e61fd23fd50623ad"
+                ],
+                "self": false,
+                "to_port": 65535
+              }
+            ],
+            "name": "blacklist-dev-app-sg",
+            "name_prefix": "",
+            "owner_id": "121505946292",
+            "revoke_rules_on_delete": false,
+            "tags": {
+              "Environment": "dev",
+              "ManagedBy": "terraform",
+              "Name": "blacklist-dev-app-sg",
+              "Project": "blacklist"
+            },
+            "tags_all": {
+              "Environment": "dev",
+              "ManagedBy": "terraform",
+              "Name": "blacklist-dev-app-sg",
+              "Project": "blacklist"
+            },
+            "timeouts": null,
+            "vpc_id": "vpc-0277b4fa9d213028e"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjo2MDAwMDAwMDAwMDAsImRlbGV0ZSI6OTAwMDAwMDAwMDAwfSwic2NoZW1hX3ZlcnNpb24iOiIxIn0=",
+          "dependencies": [
+            "aws_security_group.alb",
+            "aws_vpc.main"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_security_group",
+      "name": "rds",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 1,
+          "attributes": {
+            "arn": "arn:aws:ec2:us-east-1:121505946292:security-group/sg-0db531cb5ae229ea5",
+            "description": "Security group for the RDS PostgreSQL instance",
+            "egress": [
+              {
+                "cidr_blocks": [
+                  "0.0.0.0/0"
+                ],
+                "description": "Allow all outbound traffic",
+                "from_port": 0,
+                "ipv6_cidr_blocks": [],
+                "prefix_list_ids": [],
+                "protocol": "-1",
+                "security_groups": [],
+                "self": false,
+                "to_port": 0
+              }
+            ],
+            "id": "sg-0db531cb5ae229ea5",
+            "ingress": [
+              {
+                "cidr_blocks": [
+                  "0.0.0.0/0"
+                ],
+                "description": "PostgreSQL from allowed CIDRs (e.g. bastion / CI)",
+                "from_port": 5432,
+                "ipv6_cidr_blocks": [],
+                "prefix_list_ids": [],
+                "protocol": "tcp",
+                "security_groups": [],
+                "self": false,
+                "to_port": 5432
+              },
+              {
+                "cidr_blocks": [],
+                "description": "PostgreSQL from application layer",
+                "from_port": 5432,
+                "ipv6_cidr_blocks": [],
+                "prefix_list_ids": [],
+                "protocol": "tcp",
+                "security_groups": [
+                  "sg-06b3c52c279c9dc5c"
+                ],
+                "self": false,
+                "to_port": 5432
+              }
+            ],
+            "name": "blacklist-dev-rds-sg",
+            "name_prefix": "",
+            "owner_id": "121505946292",
+            "revoke_rules_on_delete": false,
+            "tags": {
+              "Environment": "dev",
+              "ManagedBy": "terraform",
+              "Name": "blacklist-dev-rds-sg",
+              "Project": "blacklist"
+            },
+            "tags_all": {
+              "Environment": "dev",
+              "ManagedBy": "terraform",
+              "Name": "blacklist-dev-rds-sg",
+              "Project": "blacklist"
+            },
+            "timeouts": null,
+            "vpc_id": "vpc-0277b4fa9d213028e"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjo2MDAwMDAwMDAwMDAsImRlbGV0ZSI6OTAwMDAwMDAwMDAwfSwic2NoZW1hX3ZlcnNpb24iOiIxIn0=",
+          "dependencies": [
+            "aws_security_group.alb",
+            "aws_security_group.app",
+            "aws_vpc.main"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_subnet",
+      "name": "private",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "index_key": 0,
+          "schema_version": 1,
+          "attributes": {
+            "arn": "arn:aws:ec2:us-east-1:121505946292:subnet/subnet-0cf73faded86c292a",
+            "assign_ipv6_address_on_creation": false,
+            "availability_zone": "us-east-1a",
+            "availability_zone_id": "use1-az1",
+            "cidr_block": "10.0.1.0/24",
+            "customer_owned_ipv4_pool": "",
+            "enable_dns64": false,
+            "enable_lni_at_device_index": 0,
+            "enable_resource_name_dns_a_record_on_launch": false,
+            "enable_resource_name_dns_aaaa_record_on_launch": false,
+            "id": "subnet-0cf73faded86c292a",
+            "ipv6_cidr_block": "",
+            "ipv6_cidr_block_association_id": "",
+            "ipv6_native": false,
+            "map_customer_owned_ip_on_launch": false,
+            "map_public_ip_on_launch": false,
+            "outpost_arn": "",
+            "owner_id": "121505946292",
+            "private_dns_hostname_type_on_launch": "ip-name",
+            "tags": {
+              "Environment": "dev",
+              "ManagedBy": "terraform",
+              "Name": "blacklist-dev-private-1",
+              "Project": "blacklist"
+            },
+            "tags_all": {
+              "Environment": "dev",
+              "ManagedBy": "terraform",
+              "Name": "blacklist-dev-private-1",
+              "Project": "blacklist"
+            },
+            "timeouts": null,
+            "vpc_id": "vpc-0277b4fa9d213028e"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjo2MDAwMDAwMDAwMDAsImRlbGV0ZSI6MTIwMDAwMDAwMDAwMH0sInNjaGVtYV92ZXJzaW9uIjoiMSJ9",
+          "dependencies": [
+            "aws_vpc.main",
+            "data.aws_availability_zones.available"
+          ]
+        },
+        {
+          "index_key": 1,
+          "schema_version": 1,
+          "attributes": {
+            "arn": "arn:aws:ec2:us-east-1:121505946292:subnet/subnet-01478100b6d2bce22",
+            "assign_ipv6_address_on_creation": false,
+            "availability_zone": "us-east-1b",
+            "availability_zone_id": "use1-az2",
+            "cidr_block": "10.0.2.0/24",
+            "customer_owned_ipv4_pool": "",
+            "enable_dns64": false,
+            "enable_lni_at_device_index": 0,
+            "enable_resource_name_dns_a_record_on_launch": false,
+            "enable_resource_name_dns_aaaa_record_on_launch": false,
+            "id": "subnet-01478100b6d2bce22",
+            "ipv6_cidr_block": "",
+            "ipv6_cidr_block_association_id": "",
+            "ipv6_native": false,
+            "map_customer_owned_ip_on_launch": false,
+            "map_public_ip_on_launch": false,
+            "outpost_arn": "",
+            "owner_id": "121505946292",
+            "private_dns_hostname_type_on_launch": "ip-name",
+            "tags": {
+              "Environment": "dev",
+              "ManagedBy": "terraform",
+              "Name": "blacklist-dev-private-2",
+              "Project": "blacklist"
+            },
+            "tags_all": {
+              "Environment": "dev",
+              "ManagedBy": "terraform",
+              "Name": "blacklist-dev-private-2",
+              "Project": "blacklist"
+            },
+            "timeouts": null,
+            "vpc_id": "vpc-0277b4fa9d213028e"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjo2MDAwMDAwMDAwMDAsImRlbGV0ZSI6MTIwMDAwMDAwMDAwMH0sInNjaGVtYV92ZXJzaW9uIjoiMSJ9",
+          "dependencies": [
+            "aws_vpc.main",
+            "data.aws_availability_zones.available"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_subnet",
+      "name": "public",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "index_key": 0,
+          "schema_version": 1,
+          "attributes": {
+            "arn": "arn:aws:ec2:us-east-1:121505946292:subnet/subnet-04a92937dbfb0d1ee",
+            "assign_ipv6_address_on_creation": false,
+            "availability_zone": "us-east-1a",
+            "availability_zone_id": "use1-az1",
+            "cidr_block": "10.0.10.0/24",
+            "customer_owned_ipv4_pool": "",
+            "enable_dns64": false,
+            "enable_lni_at_device_index": 0,
+            "enable_resource_name_dns_a_record_on_launch": false,
+            "enable_resource_name_dns_aaaa_record_on_launch": false,
+            "id": "subnet-04a92937dbfb0d1ee",
+            "ipv6_cidr_block": "",
+            "ipv6_cidr_block_association_id": "",
+            "ipv6_native": false,
+            "map_customer_owned_ip_on_launch": false,
+            "map_public_ip_on_launch": true,
+            "outpost_arn": "",
+            "owner_id": "121505946292",
+            "private_dns_hostname_type_on_launch": "ip-name",
+            "tags": {
+              "Environment": "dev",
+              "ManagedBy": "terraform",
+              "Name": "blacklist-dev-public-1",
+              "Project": "blacklist"
+            },
+            "tags_all": {
+              "Environment": "dev",
+              "ManagedBy": "terraform",
+              "Name": "blacklist-dev-public-1",
+              "Project": "blacklist"
+            },
+            "timeouts": null,
+            "vpc_id": "vpc-0277b4fa9d213028e"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjo2MDAwMDAwMDAwMDAsImRlbGV0ZSI6MTIwMDAwMDAwMDAwMH0sInNjaGVtYV92ZXJzaW9uIjoiMSJ9",
+          "dependencies": [
+            "aws_vpc.main",
+            "data.aws_availability_zones.available"
+          ]
+        },
+        {
+          "index_key": 1,
+          "schema_version": 1,
+          "attributes": {
+            "arn": "arn:aws:ec2:us-east-1:121505946292:subnet/subnet-01ffa04fd72ce9cab",
+            "assign_ipv6_address_on_creation": false,
+            "availability_zone": "us-east-1b",
+            "availability_zone_id": "use1-az2",
+            "cidr_block": "10.0.11.0/24",
+            "customer_owned_ipv4_pool": "",
+            "enable_dns64": false,
+            "enable_lni_at_device_index": 0,
+            "enable_resource_name_dns_a_record_on_launch": false,
+            "enable_resource_name_dns_aaaa_record_on_launch": false,
+            "id": "subnet-01ffa04fd72ce9cab",
+            "ipv6_cidr_block": "",
+            "ipv6_cidr_block_association_id": "",
+            "ipv6_native": false,
+            "map_customer_owned_ip_on_launch": false,
+            "map_public_ip_on_launch": true,
+            "outpost_arn": "",
+            "owner_id": "121505946292",
+            "private_dns_hostname_type_on_launch": "ip-name",
+            "tags": {
+              "Environment": "dev",
+              "ManagedBy": "terraform",
+              "Name": "blacklist-dev-public-2",
+              "Project": "blacklist"
+            },
+            "tags_all": {
+              "Environment": "dev",
+              "ManagedBy": "terraform",
+              "Name": "blacklist-dev-public-2",
+              "Project": "blacklist"
+            },
+            "timeouts": null,
+            "vpc_id": "vpc-0277b4fa9d213028e"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjo2MDAwMDAwMDAwMDAsImRlbGV0ZSI6MTIwMDAwMDAwMDAwMH0sInNjaGVtYV92ZXJzaW9uIjoiMSJ9",
+          "dependencies": [
+            "aws_vpc.main",
+            "data.aws_availability_zones.available"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_vpc",
+      "name": "main",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 1,
+          "attributes": {
+            "arn": "arn:aws:ec2:us-east-1:121505946292:vpc/vpc-0277b4fa9d213028e",
+            "assign_generated_ipv6_cidr_block": false,
+            "cidr_block": "10.0.0.0/16",
+            "default_network_acl_id": "acl-0c97da046c5fea85c",
+            "default_route_table_id": "rtb-0d34673e62b5f8e00",
+            "default_security_group_id": "sg-0c94c412eb469ea33",
+            "dhcp_options_id": "dopt-06711e7392489e479",
+            "enable_dns_hostnames": true,
+            "enable_dns_support": true,
+            "enable_network_address_usage_metrics": false,
+            "id": "vpc-0277b4fa9d213028e",
+            "instance_tenancy": "default",
+            "ipv4_ipam_pool_id": null,
+            "ipv4_netmask_length": null,
+            "ipv6_association_id": "",
+            "ipv6_cidr_block": "",
+            "ipv6_cidr_block_network_border_group": "",
+            "ipv6_ipam_pool_id": "",
+            "ipv6_netmask_length": 0,
+            "main_route_table_id": "rtb-0d34673e62b5f8e00",
+            "owner_id": "121505946292",
+            "tags": {
+              "Environment": "dev",
+              "ManagedBy": "terraform",
+              "Name": "blacklist-dev-vpc",
+              "Project": "blacklist"
+            },
+            "tags_all": {
+              "Environment": "dev",
+              "ManagedBy": "terraform",
+              "Name": "blacklist-dev-vpc",
+              "Project": "blacklist"
+            }
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "eyJzY2hlbWFfdmVyc2lvbiI6IjEifQ=="
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "random_id",
+      "name": "bucket_suffix",
+      "provider": "provider[\"registry.terraform.io/hashicorp/random\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "b64_std": "aCBYGw==",
+            "b64_url": "aCBYGw",
+            "byte_length": 4,
+            "dec": "1746950171",
+            "hex": "6820581b",
+            "id": "aCBYGw",
+            "keepers": null,
+            "prefix": null
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0
+        }
+      ]
+    }
+  ],
+  "check_results": null
+}

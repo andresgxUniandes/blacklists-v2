@@ -210,8 +210,12 @@ resource "aws_ecs_service" "blacklist" {
   desired_count   = var.ecs_task_desired_count
   launch_type     = "EC2"
 
+  deployment_controller {
+    type = "CODE_DEPLOY"
+  }
+
   load_balancer {
-    target_group_arn = aws_lb_target_group.app.arn
+    target_group_arn = aws_lb_target_group.blue.arn
     container_name   = "app-ecr-blacklist"
     container_port   = var.container_port
   }
@@ -228,8 +232,14 @@ resource "aws_ecs_service" "blacklist" {
 
   depends_on = [
     aws_lb_listener.http,
+    aws_lb_listener.test,
     aws_iam_role_policy_attachment.ecs_task_execution,
   ]
+
+  # CodeDeploy manages task_definition and load_balancer after initial creation
+  lifecycle {
+    ignore_changes = [task_definition, load_balancer]
+  }
 
   tags = merge(local.tags, { Name = "${local.name_prefix}-service" })
 }

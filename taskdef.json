@@ -1,58 +1,37 @@
 {
-    "executionRoleArn": "arn:aws:iam::636901877413:role/ecsTaskExecutionRole",
-    "containerDefinitions": [
-      {
-        "portMappings": [
-          {
-            "hostPort": 5000,
-            "protocol": "tcp",
-            "containerPort": 5000
-          }
-        ],
-        "image": "<IMAGE1_NAME>",
-        "essential": true,
-        "name": "app-ecr-blacklist-gl",
-        "environment": [
-          {
-            "name": "NEW_RELIC_APP_NAME",
-            "value": "blacklist-app"
-          },
-          {
-            "name": "NEW_RELIC_LOG",
-            "value": "stdout"
-          },
-          {
-            "name": "NEW_RELIC_LOG_LEVEL",
-            "value": "info"
-          },
-          {
-            "name": "NEW_RELIC_DISTRIBUTED_TRACING_ENABLED",
-            "value": "true"
-          }
-        ],
-        "secrets": [
-          {
-            "name": "NEW_RELIC_LICENSE_KEY",
-            "valueFrom": "arn:aws:ssm:us-east-1:636901877413:parameter/NEW_RELIC_LICENSE_KEY"
-          }
-        ],
-        "logConfiguration": {
-          "logDriver": "awslogs",
-          "options": {
-            "awslogs-group": "/ecs/tsk-blacklist",
-            "awslogs-region": "us-east-1",
-            "awslogs-stream-prefix": "ecs",
-            "awslogs-create-group": "true"
-          }
+  "executionRoleArn": "<EXECUTION_ROLE_ARN>",
+  "containerDefinitions": [
+    {
+      "name": "app-ecr-blacklist",
+      "image": "<IMAGE1_NAME>",
+      "essential": true,
+      "portMappings": [
+        {
+          "containerPort": 5000,
+          "hostPort": 0,
+          "protocol": "tcp"
+        }
+      ],
+      "environment": [
+        { "name": "NEW_RELIC_APP_NAME",                      "value": "blacklist-app" },
+        { "name": "NEW_RELIC_LOG",                           "value": "stdout" },
+        { "name": "NEW_RELIC_LOG_LEVEL",                     "value": "info" },
+        { "name": "NEW_RELIC_DISTRIBUTED_TRACING_ENABLED",   "value": "true" }
+      ],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group":         "/ecs/blacklist-dev",
+          "awslogs-region":        "us-east-1",
+          "awslogs-stream-prefix": "ecs",
+          "awslogs-create-group":  "true"
         }
       }
-    ],
-
-    "requiresCompatibilities": [
-      "FARGATE"
-    ],
-    "networkMode": "awsvpc",
-    "cpu": "512",
-    "memory": "1024",
-    "family": "tsk-blacklist"
-  }
+    }
+  ],
+  "requiresCompatibilities": ["EC2"],
+  "networkMode": "bridge",
+  "cpu": "256",
+  "memory": "512",
+  "family": "blacklist-dev-task"
+}

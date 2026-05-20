@@ -137,6 +137,11 @@ resource "aws_codebuild_project" "blacklist" {
       name  = "CONTAINER_NAME"
       value = "app-ecr-blacklist"
     }
+
+    environment_variable {
+      name  = "TASK_EXECUTION_ROLE_ARN"
+      value = aws_iam_role.ecs_task_execution.arn
+    }
   }
 
   source {
