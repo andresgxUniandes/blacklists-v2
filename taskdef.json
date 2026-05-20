@@ -13,10 +13,17 @@
         }
       ],
       "environment": [
-        { "name": "NEW_RELIC_APP_NAME",                      "value": "blacklist-app" },
-        { "name": "NEW_RELIC_LOG",                           "value": "stdout" },
-        { "name": "NEW_RELIC_LOG_LEVEL",                     "value": "info" },
-        { "name": "NEW_RELIC_DISTRIBUTED_TRACING_ENABLED",   "value": "true" }
+        { "name": "NEW_RELIC_APP_NAME",                    "value": "blacklist-app" },
+        { "name": "NEW_RELIC_LOG",                         "value": "stdout" },
+        { "name": "NEW_RELIC_LOG_LEVEL",                   "value": "info" },
+        { "name": "NEW_RELIC_DISTRIBUTED_TRACING_ENABLED", "value": "true" }
+      ],
+      "secrets": [
+        { "name": "DATABASE_URL",        "valueFrom": "arn:aws:ssm:us-east-1:<ACCOUNT_ID>:parameter/blacklist-dev/DATABASE_URL" },
+        { "name": "JWT_SECRET_KEY",      "valueFrom": "arn:aws:ssm:us-east-1:<ACCOUNT_ID>:parameter/blacklist-dev/JWT_SECRET_KEY" },
+        { "name": "AUTH_USERNAME",       "valueFrom": "arn:aws:ssm:us-east-1:<ACCOUNT_ID>:parameter/blacklist-dev/AUTH_USERNAME" },
+        { "name": "AUTH_PASSWORD",       "valueFrom": "arn:aws:ssm:us-east-1:<ACCOUNT_ID>:parameter/blacklist-dev/AUTH_PASSWORD" },
+        { "name": "NEW_RELIC_LICENSE_KEY", "valueFrom": "arn:aws:ssm:us-east-1:<ACCOUNT_ID>:parameter/NEW_RELIC_LICENSE_KEY" }
       ],
       "logConfiguration": {
         "logDriver": "awslogs",

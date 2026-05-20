@@ -29,9 +29,10 @@ phases:
       - echo "=== Pushing Docker image to ECR ==="
       - docker push $ECR_REPOSITORY_URI:latest
       - docker push $ECR_REPOSITORY_URI:$IMAGE_TAG
-      - echo "=== Injecting execution role ARN into taskdef.json ==="
+      - echo "=== Injecting dynamic values into taskdef.json ==="
       - cd $CODEBUILD_SRC_DIR
       - sed -i "s|<EXECUTION_ROLE_ARN>|$TASK_EXECUTION_ROLE_ARN|g" taskdef.json
+      - sed -i "s|<ACCOUNT_ID>|$AWS_ACCOUNT_ID|g" taskdef.json
       - echo "=== Writing imageDetail.json for CodeDeploy ==="
       - printf '{"ImageURI":"%s"}' $ECR_REPOSITORY_URI:$IMAGE_TAG > imageDetail.json
 

@@ -62,7 +62,10 @@ resource "aws_iam_role_policy" "ecs_task_execution_ssm" {
         "ssm:GetParameters",
         "ssm:GetParameter"
       ]
-      Resource = "arn:aws:ssm:${var.aws_region}:${data.aws_caller_identity.current.account_id}:parameter${var.new_relic_license_key_ssm_path}"
+      Resource = [
+        "arn:aws:ssm:${var.aws_region}:${data.aws_caller_identity.current.account_id}:parameter${var.new_relic_license_key_ssm_path}",
+        "arn:aws:ssm:${var.aws_region}:${data.aws_caller_identity.current.account_id}:parameter/${local.name_prefix}/*"
+      ]
     }]
   })
 }

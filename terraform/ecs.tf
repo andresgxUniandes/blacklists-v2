@@ -150,22 +150,6 @@ resource "aws_ecs_task_definition" "blacklist" {
 
     environment = [
       {
-        name  = "DATABASE_URL"
-        value = "postgresql://${var.db_username}:${var.db_password}@${aws_db_instance.main.address}:5432/${var.db_name}"
-      },
-      {
-        name  = "JWT_SECRET_KEY"
-        value = var.jwt_secret_key
-      },
-      {
-        name  = "AUTH_USERNAME"
-        value = var.auth_username
-      },
-      {
-        name  = "AUTH_PASSWORD"
-        value = var.auth_password
-      },
-      {
         name  = "NEW_RELIC_APP_NAME"
         value = var.new_relic_app_name
       },
@@ -183,10 +167,28 @@ resource "aws_ecs_task_definition" "blacklist" {
       }
     ]
 
-    secrets = [{
-      name      = "NEW_RELIC_LICENSE_KEY"
-      valueFrom = "arn:aws:ssm:${var.aws_region}:${data.aws_caller_identity.current.account_id}:parameter${var.new_relic_license_key_ssm_path}"
-    }]
+    secrets = [
+      {
+        name      = "DATABASE_URL"
+        valueFrom = aws_ssm_parameter.database_url.arn
+      },
+      {
+        name      = "JWT_SECRET_KEY"
+        valueFrom = aws_ssm_parameter.jwt_secret_key.arn
+      },
+      {
+        name      = "AUTH_USERNAME"
+        valueFrom = aws_ssm_parameter.auth_username.arn
+      },
+      {
+        name      = "AUTH_PASSWORD"
+        valueFrom = aws_ssm_parameter.auth_password.arn
+      },
+      {
+        name      = "NEW_RELIC_LICENSE_KEY"
+        valueFrom = "arn:aws:ssm:${var.aws_region}:${data.aws_caller_identity.current.account_id}:parameter${var.new_relic_license_key_ssm_path}"
+      }
+    ]
 
     logConfiguration = {
       logDriver = "awslogs"
