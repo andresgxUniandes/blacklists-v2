@@ -16,24 +16,6 @@ variable "codestar_connection_arn" {
   default     = ""
 }
 
-variable "ecs_cluster_name" {
-  description = "Name of the manually-created ECS Fargate cluster"
-  type        = string
-  default     = ""
-}
-
-variable "ecs_service_name" {
-  description = "Name of the manually-created ECS Fargate service"
-  type        = string
-  default     = ""
-}
-
-variable "ecr_repository_url" {
-  description = "URL of the manually-created ECR repository (e.g. 123456789.dkr.ecr.us-east-1.amazonaws.com/my-app)"
-  type        = string
-  default     = ""
-}
-
 variable "codedeploy_app_name" {
   description = "Name of the CodeDeploy application for ECS Blue/Green deployment"
   type        = string
@@ -49,7 +31,10 @@ variable "codedeploy_deployment_group" {
 locals {
   pipeline_enabled     = var.enable_ci_pipeline ? 1 : 0
   repository_full_name = trimsuffix(trimprefix(var.github_repo_url, "https://github.com/"), ".git")
-  ecr_repo_name        = var.ecr_repository_url != "" ? element(split("/", var.ecr_repository_url), length(split("/", var.ecr_repository_url)) - 1) : ""
+}
+
+resource "random_id" "bucket_suffix" {
+  byte_length = 4
 }
 
 resource "aws_s3_bucket" "pipeline_artifacts" {

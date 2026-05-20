@@ -88,7 +88,7 @@ variable "db_deletion_protection" {
 }
 
 variable "db_backup_retention_period" {
-  description = "Number of days to retain automated backups (0 disables backups; free tier requires 0)"
+  description = "Number of days to retain automated backups (0 disables backups)"
   type        = number
   default     = 0
 }
@@ -102,58 +102,59 @@ variable "db_skip_final_snapshot" {
 # ── Application access ────────────────────────────────────────────────────────
 
 variable "allowed_cidr_blocks" {
-  description = "CIDR blocks allowed to connect to RDS (e.g. your bastion or CI runner IP)"
+  description = "CIDR blocks allowed to connect to RDS (e.g. bastion or CI runner IP)"
   type        = list(string)
   default     = []
 }
 
-# ── Elastic Beanstalk ─────────────────────────────────────────────────────────
+# ── ECS on EC2 ────────────────────────────────────────────────────────────────
 
-variable "eb_instance_type" {
-  description = "EC2 instance type for Beanstalk instances"
+variable "ecs_instance_type" {
+  description = "EC2 instance type for ECS container instances"
   type        = string
   default     = "t3.micro"
 }
 
-variable "eb_min_instances" {
-  description = "Minimum number of EC2 instances in the Auto Scaling group"
-  type        = number
-  default     = 3
-}
-
-variable "eb_max_instances" {
-  description = "Maximum number of EC2 instances in the Auto Scaling group"
-  type        = number
-  default     = 6
-}
-
-variable "deployment_policy" {
-  description = "Beanstalk deployment strategy: AllAtOnce | Rolling | RollingWithAdditionalBatch | Immutable"
-  type        = string
-  default     = "AllAtOnce"
-
-  validation {
-    condition     = contains(["AllAtOnce", "Rolling", "RollingWithAdditionalBatch", "Immutable"], var.deployment_policy)
-    error_message = "deployment_policy must be one of: AllAtOnce, Rolling, RollingWithAdditionalBatch, Immutable."
-  }
-}
-
-variable "batch_size_type" {
-  description = "Type for batch size: Fixed | Percentage"
-  type        = string
-  default     = "Fixed"
-}
-
-variable "batch_size" {
-  description = "Number or percentage of instances to deploy in each batch (for Rolling strategies)"
+variable "ecs_min_instances" {
+  description = "Minimum number of EC2 instances in the ECS Auto Scaling group"
   type        = number
   default     = 1
 }
 
-variable "app_version" {
-  description = "Application version label. Change this to trigger a new deployment."
-  type        = string
-  default     = "v1"
+variable "ecs_max_instances" {
+  description = "Maximum number of EC2 instances in the ECS Auto Scaling group"
+  type        = number
+  default     = 3
+}
+
+variable "ecs_desired_instances" {
+  description = "Desired number of EC2 instances in the ECS Auto Scaling group"
+  type        = number
+  default     = 1
+}
+
+variable "ecs_task_desired_count" {
+  description = "Desired number of ECS task instances running"
+  type        = number
+  default     = 1
+}
+
+variable "ecs_task_cpu" {
+  description = "CPU units reserved for the ECS task (1 vCPU = 1024 units)"
+  type        = number
+  default     = 256
+}
+
+variable "ecs_task_memory" {
+  description = "Memory (MB) reserved for the ECS task"
+  type        = number
+  default     = 512
+}
+
+variable "container_port" {
+  description = "Port the application container listens on"
+  type        = number
+  default     = 5000
 }
 
 # ── Application Secrets ───────────────────────────────────────────────────────
@@ -176,6 +177,20 @@ variable "auth_password" {
   type        = string
   default     = "admin"
   sensitive   = true
+}
+
+# ── New Relic ─────────────────────────────────────────────────────────────────
+
+variable "new_relic_app_name" {
+  description = "Application name shown in New Relic"
+  type        = string
+  default     = "blacklist-app"
+}
+
+variable "new_relic_license_key_ssm_path" {
+  description = "SSM Parameter Store path for the New Relic license key"
+  type        = string
+  default     = "/NEW_RELIC_LICENSE_KEY"
 }
 
 # ── CodeBuild ─────────────────────────────────────────────────────────────────

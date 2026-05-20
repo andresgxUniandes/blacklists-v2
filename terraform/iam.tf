@@ -1,39 +1,7 @@
-# ── Elastic Beanstalk Service Role ───────────────────────────────────────────
+# ── ECS EC2 Instance Role ─────────────────────────────────────────────────────
 
-resource "aws_iam_role" "beanstalk_service" {
-  name = "${local.name_prefix}-eb-service-role"
-
-  assume_role_policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [{
-      Action    = "sts:AssumeRole"
-      Effect    = "Allow"
-      Principal = { Service = "elasticbeanstalk.amazonaws.com" }
-    }]
-  })
-
-  tags = merge(local.tags, { Name = "${local.name_prefix}-eb-service-role" })
-}
-
-resource "aws_iam_role_policy_attachment" "eb_service_enhanced_health" {
-  role       = aws_iam_role.beanstalk_service.name
-  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSElasticBeanstalkEnhancedHealth"
-}
-
-resource "aws_iam_role_policy_attachment" "eb_service_managed_updates" {
-  role       = aws_iam_role.beanstalk_service.name
-  policy_arn = "arn:aws:iam::aws:policy/AWSElasticBeanstalkManagedUpdatesCustomerRolePolicy"
-}
-
-resource "aws_iam_role_policy_attachment" "eb_service_admin_access" {
-  role       = aws_iam_role.beanstalk_service.name
-  policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess-AWSElasticBeanstalk"
-}
-
-# ── Elastic Beanstalk EC2 Instance Role ───────────────────────────────────────
-
-resource "aws_iam_role" "beanstalk_ec2" {
-  name = "${local.name_prefix}-eb-ec2-role"
+resource "aws_iam_role" "ecs_instance" {
+  name = "${local.name_prefix}-ecs-instance-role"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -44,22 +12,57 @@ resource "aws_iam_role" "beanstalk_ec2" {
     }]
   })
 
-  tags = merge(local.tags, { Name = "${local.name_prefix}-eb-ec2-role" })
+  tags = merge(local.tags, { Name = "${local.name_prefix}-ecs-instance-role" })
 }
 
-resource "aws_iam_role_policy_attachment" "eb_ec2_web_tier" {
-  role       = aws_iam_role.beanstalk_ec2.name
-  policy_arn = "arn:aws:iam::aws:policy/AWSElasticBeanstalkWebTier"
+resource "aws_iam_role_policy_attachment" "ecs_instance" {
+  role       = aws_iam_role.ecs_instance.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEC2ContainerServiceforEC2Role"
 }
 
-resource "aws_iam_role_policy_attachment" "eb_ec2_docker" {
-  role       = aws_iam_role.beanstalk_ec2.name
-  policy_arn = "arn:aws:iam::aws:policy/AWSElasticBeanstalkMulticontainerDocker"
+resource "aws_iam_instance_profile" "ecs_instance" {
+  name = "${local.name_prefix}-ecs-instance-profile"
+  role = aws_iam_role.ecs_instance.name
+
+  tags = merge(local.tags, { Name = "${local.name_prefix}-ecs-instance-profile" })
 }
 
-resource "aws_iam_instance_profile" "beanstalk_ec2" {
-  name = "${local.name_prefix}-eb-ec2-profile"
-  role = aws_iam_role.beanstalk_ec2.name
+# ── ECS Task Execution Role ───────────────────────────────────────────────────
 
-  tags = merge(local.tags, { Name = "${local.name_prefix}-eb-ec2-profile" })
+resource "aws_iam_role" "ecs_task_execution" {
+  name = "${local.name_prefix}-ecs-task-exec-role"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Action    = "sts:AssumeRole"
+      Effect    = "Allow"
+      Principal = { Service = "ecs-tasks.amazonaws.com" }
+    }]
+  })
+
+  tags = merge(local.tags, { Name = "${local.name_prefix}-ecs-task-exec-role" })
+}
+
+resource "aws_iam_role_policy_attachment" "ecs_task_execution" {
+  role       = aws_iam_role.ecs_task_execution.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+}
+
+resource "aws_iam_role_policy" "ecs_task_execution_ssm" {
+  name = "${local.name_prefix}-ecs-task-exec-ssm"
+  role = aws_iam_role.ecs_task_execution.id
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Sid    = "SSMSecrets"
+      Effect = "Allow"
+      Action = [
+        "ssm:GetParameters",
+        "ssm:GetParameter"
+      ]
+      Resource = "arn:aws:ssm:${var.aws_region}:${data.aws_caller_identity.current.account_id}:parameter${var.new_relic_license_key_ssm_path}"
+    }]
+  })
 }

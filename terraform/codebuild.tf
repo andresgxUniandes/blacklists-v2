@@ -35,22 +35,6 @@ resource "aws_iam_role_policy" "codebuild" {
         Resource = "arn:aws:logs:${var.aws_region}:*:log-group:/aws/codebuild/${local.name_prefix}-build*"
       },
       {
-        Sid    = "S3AppBundle"
-        Effect = "Allow"
-        Action = [
-          "s3:PutObject",
-          "s3:GetObject",
-          "s3:GetObjectVersion",
-          "s3:GetBucketAcl",
-          "s3:GetBucketLocation",
-          "s3:ListBucket"
-        ]
-        Resource = [
-          aws_s3_bucket.app_bundle.arn,
-          "${aws_s3_bucket.app_bundle.arn}/*"
-        ]
-      },
-      {
         Sid    = "ECRAuth"
         Effect = "Allow"
         Action = [
@@ -70,7 +54,7 @@ resource "aws_iam_role_policy" "codebuild" {
           "ecr:PutImage",
           "ecr:UploadLayerPart"
         ]
-        Resource = "arn:aws:ecr:${var.aws_region}:${data.aws_caller_identity.current.account_id}:repository/${local.ecr_repo_name}"
+        Resource = aws_ecr_repository.blacklist.arn
       },
       {
         Sid    = "CodeBuildReports"
@@ -119,7 +103,7 @@ resource "aws_iam_role_policy" "codebuild_pipeline_artifacts" {
 
 resource "aws_codebuild_project" "blacklist" {
   name          = "${local.name_prefix}-build"
-  description   = "Build, test, and deploy the Blacklist application to ECS Fargate"
+  description   = "Build and deploy the Blacklist application to ECS"
   service_role  = aws_iam_role.codebuild.arn
   build_timeout = 20
 
@@ -146,7 +130,7 @@ resource "aws_codebuild_project" "blacklist" {
 
     environment_variable {
       name  = "ECR_REPOSITORY_URI"
-      value = var.ecr_repository_url
+      value = aws_ecr_repository.blacklist.repository_url
     }
 
     environment_variable {

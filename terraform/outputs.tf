@@ -55,26 +55,35 @@ output "rds_instance_id" {
 }
 
 output "database_url" {
-  description = "Full DATABASE_URL connection string for the application (password hidden)"
+  description = "Full DATABASE_URL connection string (password hidden)"
   value       = "postgresql://${var.db_username}:****@${aws_db_instance.main.endpoint}/${var.db_name}"
   sensitive   = true
 }
 
-# ── ECS / Fargate (manual) ────────────────────────────────────────────────────
+# ── ECR ───────────────────────────────────────────────────────────────────────
 
 output "ecr_repository_url" {
-  description = "URL of the ECR repository (manually created)"
-  value       = var.ecr_repository_url
+  description = "URL of the ECR repository"
+  value       = aws_ecr_repository.blacklist.repository_url
 }
 
+# ── ECS ───────────────────────────────────────────────────────────────────────
+
 output "ecs_cluster_name" {
-  description = "Name of the ECS cluster (manually created)"
-  value       = var.ecs_cluster_name
+  description = "Name of the ECS cluster"
+  value       = aws_ecs_cluster.main.name
 }
 
 output "ecs_service_name" {
-  description = "Name of the ECS Fargate service (manually created)"
-  value       = var.ecs_service_name
+  description = "Name of the ECS service"
+  value       = aws_ecs_service.blacklist.name
+}
+
+# ── ALB ───────────────────────────────────────────────────────────────────────
+
+output "alb_dns_name" {
+  description = "DNS name of the Application Load Balancer"
+  value       = aws_lb.main.dns_name
 }
 
 output "alb_security_group_id" {

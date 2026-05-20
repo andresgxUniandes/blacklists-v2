@@ -111,9 +111,9 @@ resource "aws_security_group" "app" {
   vpc_id      = aws_vpc.main.id
 
   ingress {
-    description     = "Application traffic from ALB"
-    from_port       = 5000
-    to_port         = 5000
+    description     = "All TCP from ALB for ECS bridge-mode dynamic ports"
+    from_port       = 0
+    to_port         = 65535
     protocol        = "tcp"
     security_groups = [aws_security_group.alb.id]
   }
